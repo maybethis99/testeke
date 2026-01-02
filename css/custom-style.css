@@ -1,0 +1,31 @@
+.middle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+    color: #4CAF50;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.logo span {
+    color: #333;
+}
+
+
+.h_banner {
+    background: url('../images/heabanner-466х58.jpg') no-repeat;
+    display: block;
+    width: 466px;
+    height: 38px;
+    border: 1px solid #38383c;
+    text-align: center;
+    font-size: 17px;
+    color: #555557;
+}

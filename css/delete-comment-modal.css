@@ -1,0 +1,118 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9998;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+}
+
+.modal-window {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 255, 191, 0.7), 0 0 30px rgba(0, 255, 191, 0.5);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    color: #e0e0e0;
+    position: relative;
+    animation: neonGlow 1.5s infinite alternate;
+}
+
+@keyframes neonGlow {
+    from {
+        box-shadow: 0 0 15px rgba(0, 255, 191, 0.7), 0 0 30px rgba(0, 255, 191, 0.5);
+    }
+    to {
+        box-shadow: 0 0 25px rgba(0, 255, 191, 1), 0 0 45px rgba(0, 255, 191, 0.7);
+    }
+}
+
+.modal-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #00ffbf;
+    text-shadow: 0 0 8px rgba(0, 255, 191, 0.8);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-button {
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: box-shadow 0.3s ease;
+    flex: 1;
+    margin: 0 10px;
+    color: #1a1a1a;
+    background: #00ffbf;
+    border: none;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 191, 0.5);
+}
+
+.modal-button:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 191, 0.8), 0 0 40px rgba(0, 255, 191, 0.6);
+}
+
+#delete-preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.cube-grid {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cube {
+    width: 27%;
+    height: 27%;
+    background-color: #00ffbf;
+    opacity: 0.9;
+    animation: cubeGridScaleDelay 1.5s infinite ease-in-out;
+}
+
+.cube1 { animation-delay: 0.2s; }
+.cube2 { animation-delay: 0.3s; }
+.cube3 { animation-delay: 0.4s; }
+.cube4 { animation-delay: 0.1s; }
+.cube5 { animation-delay: 0.2s; }
+.cube6 { animation-delay: 0.3s; }
+.cube7 { animation-delay: 0.0s; }
+.cube8 { animation-delay: 0.1s; }
+.cube9 { animation-delay: 0.2s; }
+
+@keyframes cubeGridScaleDelay {
+    0%, 70%, 100% {
+        transform: scale(1);
+    }
+    35% {
+        transform: scale(0);
+    }
+}

@@ -1,0 +1,265 @@
+.container_12 {
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.create-post-box {
+    background-color: #2e2e2e;
+    padding: 30px;
+    border-radius: 10px;
+    width: calc(100% - 1px);
+    max-width: 1170px;
+    box-sizing: border-box;
+    margin-left: -10px;
+}
+
+.create-post-box h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label[for="title"] {
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-group label:not([for="title"]) {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus,
+.form-group input[type="file"]:focus {
+    border-color: #00BBFF;
+    outline: none;
+}
+
+.form-group input[type="text"]::placeholder {
+    color: #888888;
+}
+
+.preview {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.preview img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.submit-button {
+    background-color: #1e1e1e;
+    color: #00BBFF;
+    border: 2px solid #00BBFF;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 100%;
+    box-shadow: 0px 0px 15px rgba(0, 187, 255, 0.75);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-button:hover {
+    background-color: #00BBFF;
+    color: #ffffff;
+    box-shadow: 0px 0px 20px rgba(0, 187, 255, 0.75), 0 0 30px rgba(0, 187, 255, 0.5);
+    transform: translateY(-2px) scale(1.02);
+}
+
+.submit-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 187, 255, 0.5), transparent);
+    transform: scale(0);
+    transition: transform 0.5s ease;
+}
+
+.submit-button:hover::after {
+    transform: scale(1);
+}
+
+.submit-button:active {
+    background-color: #0088cc;
+    box-shadow: 0px 0px 10px rgba(0, 136, 204, 0.75);
+    transform: translateY(0) scale(1);
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-style: normal;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 14px;
+    color: #888888;
+    margin-top: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* === GLOBAL TERMINAL FX === */
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    5% { opacity: 0.9; }
+    10% { opacity: 1; }
+    15% { opacity: 0.85; }
+    20% { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+@keyframes scanlines {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        text-shadow: 0 0 6px rgba(57,255,20,0.6);
+    }
+    50% {
+        text-shadow:
+            0 0 10px rgba(57,255,20,1),
+            0 0 20px rgba(57,255,20,0.8);
+    }
+}
+
+@keyframes cursorBlink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.create-post-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.25),
+        rgba(0,0,0,0.25) 1px,
+        rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0) 4px
+    );
+    animation: scanlines 6s linear infinite;
+    z-index: 1;
+}
+
+.create-post-box {
+    position: relative;
+    animation: flicker 6s infinite;
+}
+
+.create-post-box h2 {
+    animation: glowPulse 2.5s infinite, flicker 8s infinite;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    caret-color: #39ff14;
+}
+
+/* Fake blinking cursor */
+.form-group input[type="text"]:focus::after,
+.form-group textarea:focus::after {
+    content: "_";
+    margin-left: 4px;
+    animation: cursorBlink 1s infinite;
+    color: #39ff14;
+}
+
+input:invalid,
+textarea:invalid {
+    border-color: #ff3b3b;
+    box-shadow:
+        0 0 10px rgba(255,59,59,0.8),
+        inset 0 0 10px rgba(255,59,59,0.4);
+    color: #ff9a9a;
+}
+
+input:invalid::placeholder,
+textarea:invalid::placeholder {
+    color: rgba(255,59,59,0.6);
+}
+
+
+.submit-button {
+    animation: flicker 5s infinite;
+}
+
+.submit-button::before {
+    content: ">>> EXECUTE";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(57,255,20,0.15);
+    font-size: 18px;
+    pointer-events: none;
+    animation: flicker 3s infinite;
+}
+
+.form-group label::before {
+    content: "> ";
+    color: #39ff14;
+    opacity: 0.7;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(
+        rgba(57,255,20,0.03) 1px,
+        transparent 1px
+    );
+    background-size: 100% 3px;
+    opacity: 0.4;
+}

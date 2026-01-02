@@ -1,0 +1,163 @@
+/* Style for the post actions container */
+.post-actions-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+/* Style for the dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Hover effect for the three-dot button */
+.dropdown-btn:hover {
+    background-color: #4682b4;
+    box-shadow: 0px 0px 15px rgba(70, 130, 180, 0.7);
+}
+
+/* Dropdown content styling */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    right: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    transform: translateY(5px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+/* Styling for each link inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    border-bottom: 1px solid #1c86ee;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effects for dropdown items */
+.dropdown-content a:hover {
+    background-color: #4682b4;
+    color: #fff;
+}
+
+/* Display dropdown content on button hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Adjust dropdown positioning */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Style for the dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Style for the three-dot button */
+.dropdown-btn {
+    background-color: #2b2b2b;
+    color: #1e90ff;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 12px 4px 12px 4px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e90ff, #2b2b2b 60%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    margin-top: -8px;
+}
+
+.dropdown-btn::before {
+    content: "⋯";
+    font-size: 18px;
+    color: #ffffff;
+    background-color: transparent;
+    padding: 0 6px;
+}
+
+/* Hover effect for the three-dot button */
+.dropdown-btn:hover {
+    background-color: #1e90ff;
+    color: white;
+    box-shadow: 0px 0px 15px rgba(30, 144, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+.dropdown-btn:hover::before {
+    color: #ffffff;
+}
+
+/* Dropdown content styling */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1f1f1f;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    right: 0;
+    border-radius: 12px 4px 12px 4px;
+    overflow: hidden;
+    transform: translateY(10px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+/* Styling for each link inside the dropdown */
+.dropdown-content a {
+    color: #ffffff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    border-bottom: 1px solid #444;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effects for dropdown items */
+.dropdown-content a:hover {
+    background-color: #4682b4;
+}
+
+/* Display dropdown content on button hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Button hover effect */
+.dropdown:hover .dropdown-btn {
+    background-color: #1e90ff;
+    color: white;
+    box-shadow: 0px 0px 15px rgba(30, 144, 255, 0.8);
+}
+
+.dropdown:hover .dropdown-btn::before {
+    color: white;
+}
