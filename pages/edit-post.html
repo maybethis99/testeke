@@ -171,7 +171,7 @@
             window.location.href = 'my-posts.html';
         }
 
-        fetch(`https://voilok.site/posts/${postId}`, {
+        fetch(`https://voilok.site:8189/posts/${postId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -264,7 +264,7 @@
 
             preloader.style.display = 'flex';
 
-            fetch(`https://voilok.site/posts/${postId}`, {
+            fetch(`https://voilok.site:8189/posts/${postId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

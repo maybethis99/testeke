@@ -13,7 +13,7 @@
     if (token) {
         localStorage.setItem("token", token);
 
-        fetch("https://voilok.site/users/info", {
+        fetch("https://voilok.site:8189/users/info", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
