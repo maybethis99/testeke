@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Confirmation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at center, #ffffff, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .message {
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            font-size: 18px;
+            max-width: 420px;
+            line-height: 1.6;
+        }
+        .success {
+            color: #2e7d32;
+        }
+        .error {
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+<div class="message" id="message">Checking your confirmation link...</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const messageElement = document.getElementById('message');
+
+    if (token) {
+        fetch(`https://voilok.site/auth/confirm?token=${token}`)
+            .then(response => {
+                if (response.ok) {
+                    let countdown = 3;
+                    messageElement.innerHTML = `
+                        <div class="success">✅ Your email has been successfully confirmed!</div>
+                        <p>You will be redirected back to the <strong>Post Hub</strong> login page in <span id="countdown">${countdown}</span> seconds...</p>
+                    `;
+
+                    const interval = setInterval(() => {
+                        countdown--;
+                        document.getElementById('countdown').textContent = countdown;
+                        if (countdown === 0) {
+                            clearInterval(interval);
+                            window.location.href = "https://post-hub-project.com/pages/login-page.html";
+                        }
+                    }, 1000);
+                } else {
+                    messageElement.innerHTML = `<div class="error">⚠️ This confirmation link is invalid or has expired.</div>`;
+                }
+            })
+            .catch(() => {
+                messageElement.innerHTML = `<div class="error">🚫 An error occurred. Please try again later.</div>`;
+            });
+    } else {
+        messageElement.innerHTML = `<div class="error">❌ No token provided in the link.</div>`;
+    }
+</script>
+</body>
+</html>

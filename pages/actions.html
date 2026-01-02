@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Action Logs - Post-Hub</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="../images/icons9-favicon-64.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/icons9-favicon-64.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/tms.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/actions.css">
+    <script type="text/javascript" src="../js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="../js/superfish.js"></script>
+    <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../js/tms-0.4.1.js"></script>
+    <!--[if lt IE 8]>
+    <div style=' clear: both; text-align:center; position: relative;'>
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+    </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../js/html5.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/ie.css">
+    <![endif]-->
+</head>
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+<div class="main">
+    <!--==============================header=================================-->
+    <header>
+        <div class="top">
+            <div class="nav">
+                <ul class="sf-menu">
+                    <li><a href="../index.html">home</a></li>
+                    <li><a href="#">community</a></li>
+                    <li><a href="contacts.html">contacts</a></li>
+                </ul>
+            </div>
+            <div class="login" id="auth-container">
+                <div id="auth-links">
+                    You have not yet registered to our club? &nbsp;&nbsp;
+                    <a href="register-page.html" id="register-link">Register</a> &nbsp;&nbsp; or &nbsp;&nbsp;
+                    <a href="login-page.html" id="login-link">Log in</a>
+                </div>
+                <div id="welcome-message" style="display: none;">
+                    Welcome on board, <span id="greeting"></span>!
+                    &nbsp;&nbsp;<a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="middle">
+            <h1><a class="logo" href="../index.html"><span>Post</span>Wave</a></h1>
+            <a href="../index.html" class="h_banner"></a>
+        </div>
+        <nav>
+            <ul class="sf-menu">
+                <li class="current f_item"><a href="../index.html">HOME</a></li>
+                <li><a href="my-posts.html">MY POSTS</a></li>
+                <li><a href="my-comments.html">MY COMMENTS</a></li>
+                <li><a >ACTIONS</a>
+                    <ul>
+                        <li><a href="#" id="create-user-link">Create user</a></li>
+                        <li><a href="create-post.html">Create post</a></li>
+                        <li><a href="#" id="create-comment-link">Create comment</a></li>
+                        <li><a href="#" id="get-list-of-users-link">Get list of users</a></li>
+                    </ul>
+                </li>
+                <li><a href="actions.html">LOGS</a></li>
+                <li><a href="my-account.html">MY ACCOUNT</a></li>
+            </ul>
+            <form id="search" onsubmit="return handleSearch(event)" accept-charset="utf-8" style="position: relative;">
+                <label for="search-query"></label><input type="text" id="search-query" name="s" placeholder="Enter search term..." />
+                <button type="submit" class="button1">Search</button>
+                <!-- Pop-up -->
+                <div id="search-popup" style="display: none; position: absolute; top: 100%; left: 0; background-color: rgba(255, 255, 255, 0.95); color: #333; padding: 10px 15px; border-radius: 8px; margin-top: 5px; font-size: 12px; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); border: 1px solid #ddd; white-space: nowrap;">
+                    <i class="fas fa-info-circle" style="vertical-align: middle; line-height: 1;"></i>
+                    <span style="vertical-align: middle;">Search functionality not implemented yet</span>
+                </div>
+            </form>
+            <div id="search-results"></div>
+            <div class="clear"></div>
+        </nav>
+    </header>
+    <!--==============================content================================-->
+    <section id="content">
+        <div class="container_12">
+            <div class="wrapper">
+                <article class="grid_12">
+                    <div class="box">
+                        <h2 class="first">List of All Action Logs</h2>
+                        <div class="sub_box">
+                            <table id="action-log-table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User ID</th>
+                                    <th>Action Type</th>
+                                    <th>Priority</th>
+                                    <th>Service</th>
+                                    <th>Created At</th>
+                                    <th>Message</th>
+                                    <th>Is Read</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div id="pagination-container">
+                                <!-- Pagination buttons will be dynamically generated here -->
+                            </div>
+                            <div class="post-footer">
+                                <div id="view-all-container" class="view-all-container">
+                                    <a href="../index.html" class="link2">Back To Home Page</a>
+                                </div>
+                                <div id="post-info-container" class="post-info-container">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="menu">
+            <a href="../index.html">home</a>
+            <a href="community.html">community</a>
+            <a href="contacts.html">contacts</a>
+        </div>
+        <div class="privacy">
+            <a href="../index.html"><img src="../images/logo/logo2.svg" width="74" height="35" alt="f_logo" /></a>
+            &nbsp; &nbsp;<span>© 2025 &nbsp; &nbsp;&nbsp; <a href="../privacy-policy.html">Privacy Policy</a></span>
+        </div>
+    </footer>
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem('username');
+        const token = localStorage.getItem('token');
+        const actionLogTableBody = document.querySelector('#action-log-table tbody');
+        const paginationContainer = document.getElementById('pagination-container');
+        const postInfoContainer = document.getElementById('post-info-container');
+        const logsPerPage = 10;
+        let currentPage = 1;
+
+        // Ensure user is logged in
+        if (username && token) {
+            document.getElementById('auth-links').style.display = 'none';
+            document.getElementById('welcome-message').style.display = 'block';
+            document.getElementById('greeting').textContent = username;
+
+            fetch(`https://voilok.site/actionLogs/all?page=${currentPage - 1}&limit=${logsPerPage}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => response.json())
+        } else {
+            // Redirect to login page if not logged in
+            window.location.href = 'login-page.html';
+        }
+
+        function renderLogs(logs, totalCount) {
+            actionLogTableBody.innerHTML = '';
+
+            logs.forEach(log => {
+                const createdAt = new Date(log.createdAt).toLocaleDateString('en-GB', {
+                    day: 'numeric', month: 'short', year: 'numeric'
+                });
+                const isReadClass = log.isRead ? '✔️' : '❌';
+                const logRow = `
+        <tr>
+            <td>${log.id}</td>
+            <td>${log.userId}</td>
+            <td>${log.actionType}</td>
+            <td>${log.priorityType}</td>
+            <td>${log.service}</td>
+            <td>${createdAt}</td>
+            <td>${log.message}</td>
+            <td>${isReadClass}</td>
+        </tr>`;
+                actionLogTableBody.insertAdjacentHTML('beforeend', logRow);
+            });
+
+            updateLogCount(totalCount, logs.length);
+        }
+
+        function updateLogCount(totalLogs, displayedLogs) {
+            postInfoContainer.textContent = `Total Logs: ${totalLogs} | Displaying latest: ${displayedLogs}`;
+        }
+
+        function renderPagination(totalLogs, logsPerPage, currentPage) {
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(totalLogs / logsPerPage);
+            if (totalPages <= 1) return;
+
+            const paginationList = document.createElement('ul');
+            paginationList.className = 'pagination';
+
+            const createPageItem = (pageNum, isActive = false) => {
+                const pageItem = document.createElement('li');
+                const pageLink = document.createElement('a');
+                pageLink.href = '#';
+                pageLink.textContent = pageNum;
+
+                if (isActive) {
+                    pageItem.className = 'active';
+                }
+
+                pageLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    fetchLogs(pageNum);
+                });
+
+                pageItem.appendChild(pageLink);
+                return pageItem;
+            };
+
+            // логика с многоточиями
+            paginationList.appendChild(createPageItem(1, currentPage === 1));
+            if (currentPage > 4) paginationList.appendChild(createEllipsis());
+
+            for (let i = Math.max(2, currentPage - 2); i < currentPage; i++) {
+                paginationList.appendChild(createPageItem(i));
+            }
+
+            if (currentPage > 1 && currentPage < totalPages) {
+                paginationList.appendChild(createPageItem(currentPage, true));
+            }
+
+            for (let i = currentPage + 1; i <= Math.min(currentPage + 2, totalPages - 1); i++) {
+                paginationList.appendChild(createPageItem(i));
+            }
+
+            if (currentPage < totalPages - 3) paginationList.appendChild(createEllipsis());
+            if (totalPages > 1) paginationList.appendChild(createPageItem(totalPages, currentPage === totalPages));
+
+            paginationContainer.appendChild(paginationList);
+        }
+
+        function createEllipsis() {
+            const ellipsis = document.createElement('li');
+            ellipsis.textContent = '...';
+            return ellipsis;
+        }
+
+        function fetchLogs(page) {
+            const preloader = document.getElementById('preloader');
+
+            fetch(`https://voilok.site/actionLogs/all?page=${page - 1}&limit=${logsPerPage}&sort=id,desc`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    preloader.style.display = 'none';
+
+                    if (data.success && data.payload.content.length > 0) {
+                        renderLogs(data.payload.content, data.payload.pagination.total);
+                        renderPagination(data.payload.pagination.total, logsPerPage, page);
+                    } else {
+                        actionLogTableBody.innerHTML = '<tr><td colspan="8">No logs available.</td></tr>';
+                        paginationContainer.innerHTML = '';
+                        updateLogCount(0, 0);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading logs:', error);
+                    preloader.style.display = 'none';
+                    actionLogTableBody.innerHTML = '<tr><td colspan="8">Error loading logs. Please try again later.</td></tr>';
+                    paginationContainer.innerHTML = '';
+                    updateLogCount(0, 0);
+                });
+        }
+
+        setTimeout(() => {
+            fetchLogs(currentPage);
+        }, 0);
+
+        document.getElementById('logout-link').addEventListener('click', function() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            window.location.href = 'login-page.html';
+        });
+
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.sf-menu li').forEach(function(menuItem) {
+            menuItem.classList.remove('current');
+        });
+
+        if (currentPath.includes("actions.html")) {
+            document.querySelector('.sf-menu li a[href="actions.html"]').parentElement.classList.add('current');
+        } else if (currentPath.includes("index.html")) {
+            document.querySelector('.sf-menu li a[href="index.html"]').parentElement.classList.add('current');
+        } else if (currentPath.includes("my-users.html")) {
+            document.querySelector('.sf-menu li a[href="my-users.html"]').parentElement.classList.add('current');
+        }
+    });
+
+    function showPopupMessage(message) {
+        const popup = document.getElementById('search-popup');
+        popup.querySelector('span').textContent = message;
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const createUserLink = document.getElementById('create-user-link');
+        if (createUserLink) {
+            createUserLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Create comment link click
+        const createCommentLink = document.getElementById('create-comment-link');
+        if (createCommentLink) {
+            createCommentLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Get list of users link click
+        const getListOfUsersLink = document.getElementById('get-list-of-users-link');
+        if (getListOfUsersLink) {
+            getListOfUsersLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("You do not have the required permissions. This feature is only for administrators.");
+            });
+        }
+
+        // Existing search popup handling
+        function handleSearch(event) {
+            event.preventDefault();
+            showPopupMessage("Search functionality not implemented yet");
+        }
+
+        document.getElementById('search').addEventListener('submit', handleSearch);
+    });
+
+    function handleSearch(event) {
+        event.preventDefault();
+        const popup = document.getElementById('search-popup');
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+</script>
+</body>
+</html>

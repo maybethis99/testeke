@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Post Details - Post-Hub</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="../images/icons9-favicon-64.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/icons9-favicon-64.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/tms.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/view-post.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/edit-delete-post.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/delete-post-modal.css">
+    <script type="text/javascript" src="../js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="../js/superfish.js"></script>
+    <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../js/tms-0.4.1.js"></script>
+    <style>
+        #comment-preloader, #delete-preloader {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cube-grid {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .cube {
+            width: 33%;
+            height: 33%;
+            background-color: #8cc503;
+            animation: cubeGridScaleDelay 1.3s infinite ease-in-out;
+        }
+
+        .cube1 { animation-delay: 0.2s; }
+        .cube2 { animation-delay: 0.3s; }
+        .cube3 { animation-delay: 0.4s; }
+        .cube4 { animation-delay: 0.1s; }
+        .cube5 { animation-delay: 0.2s; }
+        .cube6 { animation-delay: 0.3s; }
+        .cube7 { animation-delay: 0.0s; }
+        .cube8 { animation-delay: 0.1s; }
+        .cube9 { animation-delay: 0.2s; }
+
+        @keyframes cubeGridScaleDelay {
+            0%, 70%, 100% {
+                transform: scale(1);
+            }
+            35% {
+                transform: scale(0);
+            }
+        }
+    </style>
+    <!--[if lt IE 8]>
+    <div style=' clear: both; text-align:center; position: relative;'>
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+    </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../js/html5.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/ie.css">
+    <![endif]-->
+</head>
+<body>
+<div class="main main-content">
+    <!--==============================header=================================-->
+    <header>
+        <div class="top">
+            <div class="nav">
+                <ul class="sf-menu">
+                    <li><a href="../index.html">home</a></li>
+                    <li><a href="#">community</a></li>
+                    <li><a href="contacts.html">contacts</a></li>
+                </ul>
+            </div>
+            <div class="login" id="auth-container">
+                <div id="auth-links">
+                    You have not yet registered to our club? &nbsp;&nbsp;
+                    <a href="register-page.html" id="register-link">Register</a> &nbsp;&nbsp; or &nbsp;&nbsp;
+                    <a href="login-page.html" id="login-link">Log in</a>
+                </div>
+                <div id="welcome-message" style="display: none;">
+                    Welcome on board, <span id="greeting"></span>!
+                    &nbsp;&nbsp;<a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="middle">
+            <h1><a class="logo" href="../index.html"><span>Post</span>Wave</a></h1>
+            <a href="../index.html" class="h_banner"></a>
+        </div>
+        <nav>
+            <ul class="sf-menu">
+                <li><a href="../index.html">HOME</a></li>
+                <li class="current f_item"><a href="my-posts.html">MY POSTS</a></li>
+                <li><a href="my-comments.html">MY COMMENTS</a></li>
+                <li><a >ACTIONS</a>
+                    <ul>
+                        <li><a href="#" id="create-user-link">Create user</a></li>
+                        <li><a href="create-post.html">Create post</a></li>
+                        <li><a href="#" id="create-comment-link">Create comment</a></li>
+                        <li><a href="#" id="get-list-of-users-link">Get list of users</a></li>
+                    </ul>
+                </li>
+                <li><a href="actions.html">LOGS</a></li>
+                <li><a href="my-account.html">MY ACCOUNT</a></li>
+            </ul>
+            <form id="search" onsubmit="return handleSearch(event)" accept-charset="utf-8" style="position: relative;">
+                <label for="search-query"></label><input type="text" id="search-query" name="s" placeholder="Enter search term..." />
+                <button type="submit" class="button1">Search</button>
+                <!-- Pop-up -->
+                <div id="search-popup" style="display: none; position: absolute; top: 100%; left: 0; background-color: rgba(255, 255, 255, 0.95); color: #333; padding: 10px 15px; border-radius: 8px; margin-top: 5px; font-size: 12px; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); border: 1px solid #ddd; white-space: nowrap;">
+                    <i class="fas fa-info-circle" style="vertical-align: middle; line-height: 1;"></i>
+                    <span style="vertical-align: middle;">Search functionality not implemented yet</span>
+                </div>
+            </form>
+            <div id="search-results"></div>
+            <div class="clear"></div>
+        </nav>
+    </header>
+    <!--==============================content================================-->
+    <div class="main">
+        <section id="content">
+            <div class="container_12">
+                <div class="wrapper">
+                    <article class="grid_12">
+                        <div class="box" id="post-content-wrapper">
+                            <div class="post-header">
+                                <a href="my-posts.html?id=${postId}" class="back-button">
+                                    <span class="arrow-icon">←</span>
+                                    <span class="back-text">Back to My Posts</span>
+                                </a>
+                                <div class="dropdown">
+                                    <button class="dropdown-btn"></button>
+                                    <div class="dropdown-content">
+                                        <a href="edit-post.html" id="edit-post">Edit</a>
+                                        <a id="delete-post">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-wrapper">
+                                <div class="post-image">
+                                    <img id="post-image" src="" alt="Post Image" />
+                                </div>
+                                <div class="post-info">
+                                    <h2 id="post-title">Loading...</h2>
+                                    <p id="post-text" class="post-content"></p>
+                                    <p id="post-likes" class="post-likes">
+                                        Likes: <span id="like-count"></span>
+                                        <span class="not-implemented">(not fully implemented)</span>
+                                    </p>
+                                    <p id="post-comments" class="post-comments"></p>
+                                    <p id="post-date" class="post-date"></p>
+                                </div>
+                            </div>
+                            <hr class="divider">
+                            <div class="comments-section">
+                                <h3>Comments</h3>
+                                <div id="comments-list">
+                                </div>
+                                <div id="no-comments-message" style="display: none;">No comments yet. Be the first to leave a comment!</div>
+
+                                <!-- Comment form -->
+                                <form id="comment-form">
+                                    <textarea id="comment-message" placeholder="Add a comment..." required></textarea>
+                                    <button type="submit">POST COMMENT</button>
+                                </form>
+
+                                <!-- Preloader for comments -->
+                                <div id="comment-preloader" style="display: none;">
+                                    <div class="cube-grid">
+                                        <div class="cube cube1"></div>
+                                        <div class="cube cube2"></div>
+                                        <div class="cube cube3"></div>
+                                        <div class="cube cube4"></div>
+                                        <div class="cube cube5"></div>
+                                        <div class="cube cube6"></div>
+                                        <div class="cube cube7"></div>
+                                        <div class="cube cube8"></div>
+                                        <div class="cube cube9"></div>
+                                    </div>
+                                </div>
+
+                                <div class="comments-info-container">
+                                    <p class="comments-info">Total comments: 0. Displaying latest 3.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="menu">
+            <a href="../index.html">home</a>
+            <a href="community.html">community</a>
+            <a href="contacts.html">contacts</a>
+        </div>
+        <div class="privacy">
+            <a href="../index.html"><img src="../images/logo/logo2.svg" width="74" height="35" alt="f_logo" /></a>
+            &nbsp; &nbsp;<span>© 2025 &nbsp; &nbsp;&nbsp; <a href="../privacy-policy.html">Privacy Policy</a></span>
+        </div>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+        const preloader = document.getElementById('comment-preloader');
+        const postContentWrapper = document.getElementById('post-content-wrapper');
+        const postTitle = document.getElementById('post-title');
+        const postText = document.getElementById('post-text');
+        const postImage = document.getElementById('post-image');
+        const postDate = document.getElementById('post-date');
+        const postLikes = document.getElementById('post-likes');
+        const deleteModal = document.getElementById('delete-modal');
+        const confirmDeleteButton = document.getElementById('confirm-delete');
+        const cancelDeleteButton = document.getElementById('cancel-delete');
+        const deletePostButton = document.getElementById('delete-post');
+        const deletePreloader = document.getElementById('delete-preloader');
+        const dropdown = document.querySelector('.dropdown');
+
+        if (!postId || postId === "null") {
+            console.error('Post ID is missing or null');
+            return;
+        }
+
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
+
+        if (!token || !username) {
+            alert('You are not logged in. Please log in to view this post.');
+            window.location.href = 'login-page.html';
+            return;
+        } else {
+            document.getElementById('auth-links').style.display = 'none';
+            document.getElementById('welcome-message').style.display = 'block';
+            document.getElementById('greeting').textContent = username;
+        }
+
+        preloader.style.display = 'flex';
+
+        fetch(`https://voilok.site/posts/${postId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Response not OK:', response);
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!data || !data.payload) {
+                    console.warn('Missing payload in response:', data);
+                    return;
+                }
+
+                if (data.success) {
+                    postTitle.textContent = data.payload.title;
+                    postText.textContent = data.payload.content;
+                    postLikes.innerHTML = `Likes: ${data.payload.likes} <span class="not-implemented">(not fully implemented)</span>`;
+                    postImage.src = data.payload.image || '../images/here-your-photo.png';
+
+                    const createdDate = new Date(data.payload.created);
+
+                    postDate.textContent = `Created on: ${createdDate.toLocaleString()}`;
+
+                    const role = localStorage.getItem('role');
+                    const isAuthor = data.payload.createdBy === username;
+                    const isAdmin = role === 'SUPER_ADMIN' || role === 'ADMIN';
+
+                    if (isAuthor || isAdmin) {
+                        dropdown.style.display = 'block';
+                    } else {
+                        dropdown.style.display = 'none';
+                    }
+
+                    postContentWrapper.style.display = 'block';
+                    loadComments(postId, token);
+                } else {
+                    alert('Error loading post details');
+                }
+            })
+            .catch(error => {
+                console.error('Error loading post details:', error);
+                alert('An error occurred while loading the post.');
+            })
+            .finally(() => {
+                preloader.style.display = 'none';
+            });
+
+        function deletePost() {
+            deletePreloader.style.display = 'flex';
+
+            fetch(`https://voilok.site/posts/${postId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = 'my-posts.html';
+                    } else {
+                        deletePreloader.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting post:', error);
+                    deletePreloader.style.display = 'none';
+                });
+        }
+
+        deletePostButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            deleteModal.style.display = 'flex';
+        });
+
+        confirmDeleteButton.addEventListener('click', function() {
+            deleteModal.style.display = 'none';
+            deletePost();
+        });
+
+        cancelDeleteButton.addEventListener('click', function() {
+            deleteModal.style.display = 'none';
+        });
+
+        document.getElementById('edit-post').addEventListener('click', function(event) {
+            event.preventDefault();
+            const postId = new URLSearchParams(window.location.search).get('id');
+            if (postId) {
+                window.location.href = `edit-post.html?id=${postId}`;
+            } else {
+                console.error('Post ID is missing or null');
+                alert('Post ID is missing. Unable to proceed to edit page.');
+            }
+        });
+    });
+
+    function loadComments(postId, token) {
+        const preloader = document.getElementById('comment-preloader');
+        preloader.style.display = 'flex';
+
+        fetch('https://voilok.site/comments/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ postId: parseInt(postId) })
+        })
+            .then(response => response.json())
+            .then(data => {
+                const commentsList = document.getElementById('comments-list');
+                const noCommentsMessage = document.getElementById('no-comments-message');
+                const commentsInfo = document.querySelector('.comments-info');
+                commentsList.innerHTML = '';
+
+                const comments = (data.payload.content || []).filter(comment => !comment.isDeleted);
+
+                if (comments.length > 0) {
+                    noCommentsMessage.style.display = 'none';
+
+                    const sortedComments = comments.sort((a, b) => new Date(b.created) - new Date(a.created));
+                    const commentsToShow = sortedComments.slice(0, 3);
+
+                    commentsToShow.forEach(comment => {
+                        const commentItem = document.createElement('div');
+                        commentItem.classList.add('comment-item');
+
+                        const commentText = document.createElement('p');
+                        commentText.textContent = comment.message;
+
+                        const commentOwner = document.createElement('p');
+                        commentOwner.classList.add('comment-owner');
+                        commentOwner.textContent = `By: ${comment.owner.username}`;
+
+                        const commentDate = document.createElement('p');
+                        commentDate.classList.add('comment-date');
+                        const createdDate = new Date(comment.created);
+                        commentDate.textContent = `Created on: ${createdDate.toLocaleString()}`;
+
+                        commentItem.appendChild(commentText);
+                        commentItem.appendChild(commentOwner);
+                        commentItem.appendChild(commentDate);
+
+                        commentsList.appendChild(commentItem);
+                    });
+
+                    commentsInfo.textContent = `Total comments: ${comments.length}. Displaying latest 3.`;
+                } else {
+                    noCommentsMessage.style.display = 'block';
+                    commentsInfo.textContent = 'Total comments: 0. Displaying latest 3.';
+                }
+            })
+            .catch(error => {
+                console.error('Error loading comments:', error);
+                alert('An error occurred while loading comments.');
+            })
+            .finally(() => {
+                preloader.style.display = 'none';
+            });
+    }
+
+    document.getElementById('comment-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const commentMessage = document.getElementById('comment-message').value;
+        const token = localStorage.getItem('token');
+        const postId = new URLSearchParams(window.location.search).get('id');
+
+        // Show the comment preloader
+        const preloader = document.getElementById('comment-preloader');
+        preloader.style.display = 'flex';
+
+        fetch('https://voilok.site/comments/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                postId: postId,
+                message: commentMessage
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('comment-message').value = '';
+                    loadComments(postId, token);
+                } else {
+                    alert('Error posting comment');
+                }
+            })
+            .catch(error => {
+                console.error('Error posting comment:', error);
+                alert('An error occurred while posting the comment.');
+            })
+            .finally(() => {
+                preloader.style.display = 'none';
+            });
+    });
+
+    // Reuse the search popup for other actions
+    function showPopupMessage(message) {
+        const popup = document.getElementById('search-popup');
+        popup.querySelector('span').textContent = message;
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Handle Create user link click
+        const createUserLink = document.getElementById('create-user-link');
+        if (createUserLink) {
+            createUserLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Create comment link click
+        const createCommentLink = document.getElementById('create-comment-link');
+        if (createCommentLink) {
+            createCommentLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Get list of users link click
+        const getListOfUsersLink = document.getElementById('get-list-of-users-link');
+        if (getListOfUsersLink) {
+            getListOfUsersLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("You do not have the required permissions. This feature is only for administrators.");
+            });
+        }
+
+        // Existing search popup handling
+        function handleSearch(event) {
+            event.preventDefault();
+            showPopupMessage("Search functionality not implemented yet");
+        }
+
+        document.getElementById('search').addEventListener('submit', handleSearch);
+    });
+
+    function handleSearch(event) {
+        event.preventDefault();
+        const popup = document.getElementById('search-popup');
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            localStorage.removeItem('email');
+            localStorage.removeItem('role');
+
+            window.location.href = 'login-page.html';
+        });
+    }
+</script>
+
+<div class="modal-overlay" id="delete-modal">
+    <div class="modal-window">
+        <div class="modal-title">Are you sure you want to delete this post?</div>
+        <div class="modal-buttons">
+            <button class="modal-button confirm" id="confirm-delete">Yes</button>
+            <button class="modal-button cancel" id="cancel-delete">No</button>
+        </div>
+    </div>
+</div>
+<div id="delete-preloader" style="display: none;">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>All My Posts - Post-Hub</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="../images/icons9-favicon-64.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/icons9-favicon-64.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/tms.css">
+    <script type="text/javascript" src="../js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="../js/superfish.js"></script>
+    <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../js/tms-0.4.1.js"></script>
+    <!--[if lt IE 8]>
+    <div style=' clear: both; text-align:center; position: relative;'>
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+    </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../js/html5.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/ie.css">
+    <![endif]-->
+    <style>
+        /* Additional styling for pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            padding: 10px 0;
+            margin: 20px 0 0 0;
+        }
+
+        .pagination li {
+            margin: 0 4px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            padding: 6px 12px;
+            background-color: #1e1e1e;
+            color: #00BBFF;
+            border: 1px solid #00BBFF;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0px 0px 5px rgba(0, 187, 255, 0.4);
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .pagination a:hover {
+            background-color: #00BBFF;
+            color: #ffffff;
+            box-shadow: 0px 0px 7px rgba(0, 187, 255, 0.4), 0 0 10px rgba(0, 187, 255, 0.2);
+            transform: translateY(-1px) scale(1.01);
+        }
+
+        .pagination a::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 187, 255, 0.2), transparent);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .pagination a:hover::after {
+            transform: scale(1);
+        }
+
+        .pagination .active a {
+            background-color: #00BBFF;
+            color: #ffffff;
+            transform: translateY(-1px) scale(1.01);
+        }
+
+        .pagination a:active {
+            background-color: #0088cc;
+            box-shadow: 0px 0px 5px rgba(0, 136, 204, 0.5);
+            transform: translateY(0) scale(1);
+        }
+
+    </style>
+</head>
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+
+<div class="main">
+    <!--==============================header=================================-->
+    <header>
+        <div class="top">
+            <div class="nav">
+                <ul class="sf-menu">
+                    <li><a href="../index.html">home</a></li>
+                    <li><a href="#">community</a></li>
+                    <li><a href="contacts.html">contacts</a></li>
+                </ul>
+            </div>
+            <div class="login" id="auth-container">
+                <div id="auth-links">
+                    You have not yet registered to our club? &nbsp;&nbsp;
+                    <a href="register-page.html" id="register-link">Register</a> &nbsp;&nbsp; or &nbsp;&nbsp;
+                    <a href="login-page.html" id="login-link">Log in</a>
+                </div>
+                <div id="welcome-message" style="display: none;">
+                    Welcome on board, <span id="greeting"></span>!
+                    &nbsp;&nbsp;<a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="middle">
+            <h1><a class="logo" href="../index.html"><span>Post</span>Wave</a></h1>
+            <a href="../index.html" class="h_banner"></a>
+        </div>
+        <nav>
+            <ul class="sf-menu">
+                <li><a href="../index.html">HOME</a></li>
+                <li class="current f_item"><a href="my-posts.html">MY POSTS</a></li>
+                <li><a href="my-comments.html">MY COMMENTS</a></li>
+                <li><a >ACTIONS</a>
+                    <ul>
+                        <li><a href="#" id="create-user-link">Create user</a></li>
+                        <li><a href="create-post.html">Create post</a></li>
+                        <li><a href="#" id="create-comment-link">Create comment</a></li>
+                        <li><a href="#" id="get-list-of-users-link">Get list of users</a></li>
+                    </ul>
+                </li>
+                <li><a href="actions.html">LOGS</a></li>
+                <li><a href="my-account.html">MY ACCOUNT</a></li>
+            </ul>
+            <form id="search" onsubmit="return handleSearch(event)" accept-charset="utf-8" style="position: relative;">
+                <label for="search-query"></label><input type="text" id="search-query" name="s" placeholder="Enter search term..." />
+                <button type="submit" class="button1">Search</button>
+                <!-- Pop-up -->
+                <div id="search-popup" style="display: none; position: absolute; top: 100%; left: 0; background-color: rgba(255, 255, 255, 0.95); color: #333; padding: 10px 15px; border-radius: 8px; margin-top: 5px; font-size: 12px; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); border: 1px solid #ddd; white-space: nowrap;">
+                    <i class="fas fa-info-circle" style="vertical-align: middle; line-height: 1;"></i>
+                    <span style="vertical-align: middle;">Search functionality not implemented yet</span>
+                </div>
+            </form>
+            <div id="search-results"></div>
+            <div class="clear"></div>
+        </nav>
+    </header>
+    <!--==============================content=================================-->
+    <div class="main">
+        <section id="content">
+            <div class="container_12">
+                <div class="wrapper">
+                    <article class="grid_12">
+                        <div class="box">
+                            <h2 class="first">All My Posts</h2>
+                            <div class="sub_box" id="post-container">
+                                <ul class="ext_list picks" id="post-list">
+                                </ul>
+                                <div class="post-footer">
+                                    <div id="view-all-container" class="view-all-container">
+                                        <a href="my-posts.html" class="link2">Back To My Posts</a>
+                                    </div>
+                                    <div id="post-info-container" class="post-info-container">
+                                    </div>
+                            </div>
+                            <div id="pagination-container">
+                            </div>
+                        </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="menu">
+            <a href="../index.html">home</a>
+            <a href="community.html">community</a>
+            <a href="contacts.html">contacts</a>
+        </div>
+        <div class="privacy">
+            <a href="../index.html"><img src="../images/logo/logo2.svg" width="74" height="35" alt="f_logo" /></a>
+            &nbsp; &nbsp;<span>© 2025 &nbsp; &nbsp;&nbsp; <a href="../privacy-policy.html">Privacy Policy</a></span>
+        </div>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const preloader = document.getElementById('preloader');
+        const username = localStorage.getItem('username');
+        const token = localStorage.getItem('token');
+        const postList = document.getElementById('post-list');
+        const postInfoContainer = document.getElementById('post-info-container');
+        const paginationContainer = document.getElementById('pagination-container');
+        const postsPerPage = 10;
+        let currentPage = 1;
+        let allPosts = [];
+
+        if (username && token) {
+            document.getElementById('auth-links').style.display = 'none';
+            document.getElementById('welcome-message').style.display = 'block';
+            document.getElementById('greeting').textContent = username;
+
+            fetch('https://voilok.site/posts', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    preloader.style.display = 'none';
+
+                    if (data.success && data.payload.length > 0) {
+                        allPosts = data.payload.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+                        renderPosts(allPosts, currentPage);
+                        renderPagination(allPosts.length, postsPerPage);
+                    } else {
+                        postList.innerHTML = `<p class="no-posts-message">You don't have any posts yet. <a href="create-post.html">Create a new post</a> to get started!</p>`;
+                        postInfoContainer.innerHTML = '';
+                        paginationContainer.innerHTML = '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading posts:', error);
+                    preloader.style.display = 'none';
+                    postInfoContainer.innerHTML = '';
+                    paginationContainer.innerHTML = '';
+                });
+        } else {
+            document.getElementById('auth-links').style.display = 'block';
+            document.getElementById('welcome-message').style.display = 'none';
+            postList.innerHTML = `<p class="no-posts-message">Please <a href="register-page.html">register</a> or <a href="login-page.html">log in</a> to create and view your posts.</p>`;
+            preloader.style.display = 'none';
+            postInfoContainer.innerHTML = '';
+            paginationContainer.innerHTML = '';
+        }
+
+        function renderPosts(posts, page) {
+            postList.innerHTML = '';
+            const startIndex = (page - 1) * postsPerPage;
+            const endIndex = Math.min(startIndex + postsPerPage, posts.length);
+            const postsToDisplay = posts.slice(startIndex, endIndex);
+
+            postsToDisplay.forEach(post => {
+                const localDate = new Date(post.created);
+                const postDate = localDate.toLocaleString('uk-UA', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+
+                const postItem = `
+                    <li>
+                        <figure><img src="${post.image}" alt="${post.title}" onerror="this.onerror=null;this.src='../images/here-your-photo.png';" /></figure>
+                        <div class="content-wrapper">
+                            <div>
+                                <h4><a href="post.html?id=${post.id}">${post.title}</a></h4>
+                                <p class="post-content">${post.content.substring(0, 150)}...</p>
+                                <p class="likes">Likes: ${post.likes} <span class="not-implemented">(not fully implemented)</span></p>
+                                <p class="comments">The number of comments: ${post.commentsCount}</p>
+                            </div>
+                            <p class="date" style="text-align: right;">Created on: ${postDate}</p>
+                            <a href="post.html?id=${post.id}" class="button3">View Post</a>
+                        </div>
+                    </li>`;
+                postList.insertAdjacentHTML('beforeend', postItem);
+            });
+
+            postInfoContainer.innerHTML = `Total posts: ${posts.length}. Displaying posts ${startIndex + 1} - ${endIndex}.`;
+        }
+
+        function renderPagination(totalPosts, postsPerPage) {
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+            const paginationList = document.createElement('ul');
+            paginationList.className = 'pagination';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = document.createElement('li');
+                const pageLink = document.createElement('a');
+                pageLink.href = '#';
+                pageLink.textContent = i;
+
+                if (i === currentPage) {
+                    pageItem.className = 'active';
+                }
+
+                pageLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    currentPage = i;
+                    renderPosts(allPosts, currentPage);
+                    renderPagination(totalPosts, postsPerPage);
+                });
+
+                pageItem.appendChild(pageLink);
+                paginationList.appendChild(pageItem);
+            }
+
+            paginationContainer.appendChild(paginationList);
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            window.location.href = 'login-page.html';
+        });
+
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.sf-menu li').forEach(function(menuItem) {
+            menuItem.classList.remove('current');
+        });
+
+        if (currentPath.includes("index.html")) {
+            document.querySelector('.sf-menu li a[href="index.html"]').parentElement.classList.add('current');
+        } else if (currentPath.includes("pages/my-posts.html")) {
+            document.querySelector('.sf-menu li a[href="pages/my-posts.html"]').parentElement.classList.add('current');
+        }
+    });
+
+    function showPopupMessage(message) {
+        const popup = document.getElementById('search-popup');
+        popup.querySelector('span').textContent = message;
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Handle Create user link click
+        const createUserLink = document.getElementById('create-user-link');
+        if (createUserLink) {
+            createUserLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Create comment link click
+        const createCommentLink = document.getElementById('create-comment-link');
+        if (createCommentLink) {
+            createCommentLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Get list of users link click
+        const getListOfUsersLink = document.getElementById('get-list-of-users-link');
+        if (getListOfUsersLink) {
+            getListOfUsersLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("You do not have the required permissions. This feature is only for administrators.");
+            });
+        }
+
+        // Existing search popup handling
+        function handleSearch(event) {
+            event.preventDefault();
+            showPopupMessage("Search functionality not implemented yet");
+        }
+
+        document.getElementById('search').addEventListener('submit', handleSearch);
+    });
+
+    function handleSearch(event) {
+        event.preventDefault();
+        const popup = document.getElementById('search-popup');
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+</script>
+</body>
+</html>

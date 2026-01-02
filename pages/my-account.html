@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Account - Post-Hub</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="../images/icons9-favicon-64.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/icons9-favicon-64.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/tms.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/my-account.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/edit-delete-post.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/delete-post-modal.css">
+    <script type="text/javascript" src="../js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="../js/superfish.js"></script>
+    <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../js/tms-0.4.1.js"></script>
+</head>
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+
+<div class="main">
+    <!--==============================header=================================-->
+    <header>
+        <div class="top">
+            <div class="nav">
+                <ul class="sf-menu">
+                    <li><a href="../index.html">home</a></li>
+                    <li><a href="#">community</a></li>
+                    <li><a href="contacts.html">contacts</a></li>
+                </ul>
+            </div>
+            <div class="login" id="auth-container">
+                <div id="auth-links">
+                    You have not yet registered to our club? &nbsp;&nbsp;
+                    <a href="register-page.html" id="register-link">Register</a> &nbsp;&nbsp; or &nbsp;&nbsp;
+                    <a href="login-page.html" id="login-link">Log in</a>
+                </div>
+                <div id="welcome-message" style="display: none;">
+                    Welcome on board, <span id="greeting"></span>!
+                    &nbsp;&nbsp;<a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="middle">
+            <h1><a class="logo" href="../index.html"><span>Post</span>Wave</a></h1>
+            <a href="../index.html" class="h_banner"></a>
+        </div>
+        <nav>
+            <ul class="sf-menu">
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="my-posts.html">MY POSTS</a></li>
+                <li><a href="my-comments.html">MY COMMENTS</a></li>
+                <li><a >ACTIONS</a>
+                    <ul>
+                        <li><a href="#" id="create-user-link">Create user</a></li>
+                        <li><a href="create-post.html">Create post</a></li>
+                        <li><a href="#" id="create-comment-link">Create comment</a></li>
+                        <li><a href="#" id="get-list-of-users-link">Get list of users</a></li>
+                    </ul>
+                </li>
+                <li><a href="actions.html">LOGS</a></li>
+                <li class="current f_item"><a href="my-account.html">MY ACCOUNT</a></li>
+            </ul>
+            <form id="search" onsubmit="return handleSearch(event)" accept-charset="utf-8" style="position: relative;">
+                <label for="search-query"></label><input type="text" id="search-query" name="s" placeholder="Enter search term..." />
+                <button type="submit" class="button1">Search</button>
+                <!-- Pop-up -->
+                <div id="search-popup" style="display: none; position: absolute; top: 100%; left: 0; background-color: rgba(255, 255, 255, 0.95); color: #333; padding: 10px 15px; border-radius: 8px; margin-top: 5px; font-size: 12px; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); border: 1px solid #ddd; white-space: nowrap;">
+                    <i class="fas fa-info-circle" style="vertical-align: middle; line-height: 1;"></i>
+                    <span style="vertical-align: middle;">Search functionality not implemented yet</span>
+                </div>
+            </form>
+            <div id="search-results"></div>
+            <div class="clear"></div>
+        </nav>
+    </header>
+    <!--==============================content=================================-->
+    <div class="main">
+        <section id="content">
+            <div class="container_12">
+                <div class="wrapper">
+                    <article class="grid_12">
+                        <div class="box">
+                            <h2 class="first">My Account</h2>
+                            <div class="button-container">
+                                <div id="edit-delete-container">
+<!--                                    <a href="#" class="edit-button" id="edit-account-button">EDIT</a>-->
+                                    <a href="#" class="delete-button" id="delete-account-button">DELETE</a>
+                                    <button id="save-account-button" class="save-button" style="display:none;">SAVE</button>
+                                </div>
+                            </div>
+                            <hr class="divider">
+                            <div class="account-details">
+                                <div class="avatar-container">
+                                    <img src="../images/avatars/avatar-6.png" alt="Avatar" class="user-avatar" id="user-avatar">
+                                </div>
+                                <div class="user-details">
+                                    <p><strong>Username:</strong> <span id="user-username">Loading...</span></p>
+                                    <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+                                    <p><strong>Last Login:</strong> <span id="user-last-login">Loading...</span></p>
+                                    <p><strong>Status:</strong> <span id="user-status">Loading...</span></p>
+                                    <p><strong>Role:</strong> <span id="user-role">Loading...</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="menu">
+            <a href="../index.html">home</a>
+            <a href="community.html">community</a>
+            <a href="contacts.html">contacts</a>
+        </div>
+        <div class="privacy">
+            <a href="../index.html"><img src="../images/logo/logo2.svg" width="74" height="35" alt="f_logo" /></a>
+            &nbsp; &nbsp;<span>© 2025 &nbsp; &nbsp;&nbsp; <a href="../privacy-policy.html">Privacy Policy</a></span>
+        </div>
+    </footer>
+</div>
+
+<div class="modal-overlay" id="delete-account-modal">
+    <div class="modal-window">
+        <div class="modal-title">Are you sure you want to delete your account?</div>
+        <div class="modal-buttons">
+            <button class="modal-button confirm" id="confirm-delete-account">Yes</button>
+            <button class="modal-button cancel" id="cancel-delete-account">No</button>
+        </div>
+    </div>
+</div>
+<div id="delete-account-preloader" style="display: none;">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const preloader = document.getElementById('preloader');
+        const username = localStorage.getItem('username');
+        const token = localStorage.getItem('token');
+        let userId; // глобально
+
+
+
+        const userAvatar = document.getElementById('user-avatar');
+        const userDetails = {
+            username: document.getElementById('user-username'),
+            email: document.getElementById('user-email'),
+            lastLogin: document.getElementById('user-last-login'),
+            status: document.getElementById('user-status'),
+            role: document.getElementById('user-role')
+        };
+        const editButton = document.getElementById('edit-account-button');
+        const errorMessage = document.createElement('div');
+        errorMessage.className = 'error-message';
+        errorMessage.style.display = 'none';
+
+        function fetchUserInfo() {
+            fetch(`https://voilok.site/users/info`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user information');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    preloader.style.display = 'none';
+                    if (data.success && data.payload) {
+                        const payload = data.payload;
+
+                        userId = payload.id;
+                        localStorage.setItem("userId", userId);
+                        localStorage.setItem("username", payload.username); // сохраняем новое имя
+
+                        userDetails.username.textContent = payload.username;
+                        userDetails.email.textContent = payload.email;
+                        userDetails.status.textContent = payload.registrationStatus;
+                        userDetails.role.textContent = payload.roles.map(role => role.name).join(', ');
+                        userDetails.lastLogin.textContent = new Date(payload.lastLogin).toLocaleString('en-GB', {
+                            day: 'numeric', month: 'short', year: 'numeric',
+                            hour: '2-digit', minute: '2-digit'
+                        });
+
+                        const fixedAvatar = `avatar-6.png`;
+                        userAvatar.src = `../images/avatars/${fixedAvatar}`;
+                    } else {
+                        throw new Error('User data loading failed');
+                    }
+                })
+                .catch(error => {
+                    showErrorMessage(error.message);
+                });
+        }
+
+        fetchUserInfo(); // 👈 вызывать при загрузке
+
+        document.querySelector('.account-details').appendChild(errorMessage);
+
+        if (!token) {
+            window.location.href = 'login-page.html';
+            return;
+        }
+
+        document.getElementById('auth-links').style.display = 'none';
+        const welcomeMessage = document.getElementById('welcome-message');
+        welcomeMessage.style.display = 'block';
+        document.getElementById('greeting').textContent = username;
+
+        // editButton.addEventListener('click', function (event) {
+        //     event.preventDefault();
+        //     if (editButton.textContent === 'EDIT') {
+        //         toggleEditMode(true);
+        //     } else if (editButton.textContent === 'SAVE') {
+        //         const updatedUsername = document.getElementById('user-username-input').value.trim();
+        //         const updatedEmail = document.getElementById('user-email-input').value.trim();
+        //
+        //         if (updatedUsername && updatedEmail) {
+        //             saveAccountDetails(updatedUsername, updatedEmail, null);
+        //         } else {
+        //             showErrorMessage("Username and Email are required.");
+        //         }
+        //     }
+        // });
+
+        // function toggleEditMode(isEdit) {
+        //     if (isEdit) {
+        //         convertToEditable(userDetails.username, 'user-username-input');
+        //         convertToEditable(userDetails.email, 'user-email-input');
+        //
+        //         editButton.textContent = 'SAVE';
+        //     } else {
+        //         editButton.textContent = 'EDIT';
+        //     }
+        // }
+
+        function convertToEditable(element, inputId) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.id = inputId;
+            input.className = 'editable-input';
+            input.value = element.textContent.trim();
+            element.replaceWith(input);
+        }
+
+        function saveAccountDetails(username, email, phone) {
+            showPreloader();
+
+            fetch(`https://voilok.site/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    phoneNumber: phone || null
+                })
+            })
+                .then(response => {
+                    hidePreloader();
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.error || 'Failed to update account details');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem("username", username);
+
+                        toggleEditMode(false);
+                        fetchUserInfo();
+                    } else {
+                        throw new Error('Failed to update account details');
+                    }
+                })
+                .catch(error => {
+                    showErrorMessage(error.message);
+                });
+        }
+
+        function showErrorMessage(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function showPreloader() {
+            document.getElementById('preloader').style.display = 'flex';
+        }
+
+        function hidePreloader() {
+            document.getElementById('preloader').style.display = 'none';
+        }
+
+        const deleteAccountButton = document.getElementById('delete-account-button');
+        const deleteModal         = document.getElementById('delete-account-modal');
+        const confirmDelete       = document.getElementById('confirm-delete-account');
+        const cancelDelete        = document.getElementById('cancel-delete-account');
+
+        deleteAccountButton.addEventListener('click', e => {
+            e.preventDefault();
+            deleteModal.style.display = 'flex';
+            deleteModal.style.alignItems = 'center';
+            deleteModal.style.justifyContent = 'center';
+        });
+
+        cancelDelete.addEventListener('click', e => {
+            e.preventDefault();
+            deleteModal.style.display = 'none';
+        });
+
+        confirmDelete.addEventListener('click', async e => {
+            e.preventDefault();
+            deleteModal.style.display = 'none';
+            showPreloader();
+
+            try {
+                const res = await fetch(`https://post-wave-swagger.fun/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                if (!res.ok) {
+                    let err = 'Failed to delete account';
+                    try {
+                        const j = await res.json();
+                        if (j.error) err = j.error;
+                    } catch {}
+                    throw new Error(err);
+                }
+                localStorage.clear();
+                window.location.href = 'login-page.html';
+            } catch (err) {
+                hidePreloader();
+                showErrorMessage(err.message);
+            }
+        });
+
+    });
+
+    // Reuse the search popup for other actions
+    function showPopupMessage(message) {
+        const popup = document.getElementById('search-popup');
+        popup.querySelector('span').textContent = message;
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Handle Create user link click
+        const createUserLink = document.getElementById('create-user-link');
+        if (createUserLink) {
+            createUserLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Create comment link click
+        const createCommentLink = document.getElementById('create-comment-link');
+        if (createCommentLink) {
+            createCommentLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Get list of users link click
+        const getListOfUsersLink = document.getElementById('get-list-of-users-link');
+        if (getListOfUsersLink) {
+            getListOfUsersLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("You do not have the required permissions. This feature is only for administrators.");
+            });
+        }
+
+        // Existing search popup handling
+        function handleSearch(event) {
+            event.preventDefault();
+            showPopupMessage("Search functionality not implemented yet");
+        }
+
+        document.getElementById('search').addEventListener('submit', handleSearch);
+    });
+
+
+    function handleSearch(event) {
+        event.preventDefault();
+        const popup = document.getElementById('search-popup');
+
+        popup.style.display = 'block';
+
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.getElementById('logout-link').addEventListener('click', function (e) {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.removeItem('userId');
+        window.location.href = 'login-page.html';
+    });
+</script>
+</body>
+</html>

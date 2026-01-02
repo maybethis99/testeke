@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Post-Hub service [demo]</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="images/icons9-favicon-64.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/icons9-favicon-64.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/prettyPhoto.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/tms.css">
+    <link rel="stylesheet" type="text/css" href="css/latest-posts.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="js/superfish.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="js/tms-0.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="js/hover-image.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        $(function(){
+            $('.slider')._TMS({
+                prevBu:false,
+                nextBu:false,
+                playBu:false,
+                duration:800,
+                easing:'easeOutQuad',
+                preset:'diagonalFade',
+                pagination:true,
+                pagNums:false,
+                slideshow:7000,
+                numStatus:false,
+                banners:'fade',
+                waitBannerAnimation:false,
+                progressBar:false
+            });
+        });
+    </script>
+    <!--[if lt IE 8]>
+    <div style=' clear: both; text-align:center; position: relative;'>
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+    </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
+    <![endif]-->
+</head>
+<body>
+<div id="preloader">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+
+<div class="main">
+    <!--==============================header=================================-->
+    <header>
+        <div class="top">
+            <div class="nav">
+                <ul class="sf-menu">
+                    <li><a href="index.html">home</a></li>
+                    <li><a target="_blank" href="#">documentation</a></li>
+                    <li><a target="_blank" href="#">GOTHIC ANUS PENETRATUS</a></li>
+                    <li><a href="#">community</a></li>
+                    <li><a href="pages/contacts.html">contacts</a></li>
+                </ul>
+            </div>
+            <div class="login" id="auth-container">
+                <div id="auth-links">
+                    You have not yet registered to our club? &nbsp;&nbsp;
+                    <a href="pages/register-page.html" id="register-link">Register</a> &nbsp;&nbsp; or &nbsp;&nbsp;
+                    <a href="pages/login-page.html" id="login-link">Log in</a>
+                </div>
+                <div id="welcome-message" style="display: none;">
+                    Welcome on board, <span id="greeting"></span>!
+                    &nbsp;&nbsp;<a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="middle">
+            <h1><a class="logo" href="index.html"><span>Post</span>Wave</a></h1>
+            <a href="index.html" class="h_banner"></a>
+        </div>
+        <nav>
+            <ul class="sf-menu">
+                <li class="current f_item"><a href="index.html">HOME</a></li>
+                <li><a href="pages/my-posts.html">MY POSTS</a></li>
+                <li><a href="pages/my-comments.html">MY COMMENTS</a></li>
+                <li><a >ACTIONS</a>
+                    <ul>
+                        <li><a href="#" id="create-user-link">Create user</a></li>
+                        <li><a href="pages/create-post.html">Create post</a></li>
+                        <li><a href="#" id="create-comment-link">Create comment</a></li>
+                        <li><a href="#" id="get-list-of-users-link">Get list of users</a></li>
+                    </ul>
+                </li>
+                <li><a href="pages/actions.html">LOGS</a></li>
+                <li><a href="pages/my-account.html">MY ACCOUNT</a></li>
+            </ul>
+            <form id="search" onsubmit="return handleSearch(event)" accept-charset="utf-8" style="position: relative;">
+                <label for="search-query"></label><input type="text" id="search-query" name="s" placeholder="Enter search term..." />
+                <button type="submit" class="button1">Search</button>
+                <!-- Pop-up -->
+                <div id="search-popup" style="display: none; position: absolute; top: 100%; left: 0; background-color: rgba(255, 255, 255, 0.95); color: #333; padding: 10px 15px; border-radius: 8px; margin-top: 5px; font-size: 12px; z-index: 1000; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); border: 1px solid #ddd; white-space: nowrap;">
+                    <i class="fas fa-info-circle" style="vertical-align: middle; line-height: 1;"></i>
+                    <span style="vertical-align: middle;">Search functionality not implemented yet</span>
+                </div>
+            </form>
+            <div id="search-results"></div>
+            <div class="clear"></div>
+        </nav>
+    </header>
+    <!-- slider -->
+<div id="slider">
+    <div class="slider">
+        <ul class="items">
+            <li>
+                <img src="images/slider/slide-3-1.svg" width="640" height="385" alt="slide1" />
+                <div class="banner">
+                    <div class="title1">NOCTIS ORDO MARGINALIS</div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis
+                        nunc vitae lacus fermentum, sed varius sapien pretium.
+                        <a href="#" class="pulsing-text" target="_blank">
+                            Accede ad cursum
+                        </a>.
+                        <br><br>
+                        Omnia quae hic vides gradatim constructa sunt — a logica interiori
+                        usque ad interfaciem et distributionem finalem.
+                    </p><br><br><br>
+                    <div class="but_wrap">
+                        <a href="pages/more-about-project.html" class="button2">legere plura</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <img src="images/slider/slide-3-2.svg" width="640" height="385" alt="slide2" />
+                <div class="banner">
+                    <div class="title1">FUNCTIONES SYSTEMATIS</div>
+                    <div class="title2">Structura et fluxus applicationis</div>
+                    <p>
+                        Ab initio interactionis, actio usoris per portas systematis transit,
+                        probationes securitatis superat, fluxum eventuum sequitur,
+                        et ad memoriam persistentem pervenit.
+                        <br><br>
+                        Codex interior praesto est in
+                        <a href="#" target="_blank" class="pulsing-text">
+                            archivis publicis
+                        </a>,
+                        cum aliis documentis et descriptionibus technicis in
+                        <a href="#" target="_blank" class="pulsing-text">
+                            hac pagina
+                        </a>.
+                    </p>
+                    <div class="but_wrap">
+                        <a href="pages/more-about-project.html" class="button2">legere plura</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <img src="images/slider/slide-3-1.svg" width="640" height="385" alt="slide1" />
+                <div class="banner">
+                    <div class="title1">PROJECTUM DEMONSTRATIVUM</div>
+                    <div class="title2">Explora naturam huius systematis</div>
+                    <p>
+                        Vide quomodo haec structura in actu operetur et sequere processum creationis:
+                        <a href="#" class="pulsing-text" target="_blank">
+                            ingredere disciplinam
+                        </a>.
+                        <br><br>
+                        Singula elementa hic praesentata sunt ex progressu continuo nata —
+                        a fundamento usque ad executionem.
+                    </p><br><br><br>
+                    <div class="but_wrap">
+                        <a href="pages/more-about-project.html" class="button2">legere plura</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <img src="images/slider/slide-3-2.svg" width="640" height="385" alt="slide2" />
+                <div class="banner">
+                    <div class="title1">MECHANICA INTERNA</div>
+                    <div class="title2">Processus et communicatio moduli</div>
+                    <p>
+                        Omnis actio per systema modularum fluit, regulis definitis obtemperans,
+                        donec ad ultimam destinationem perveniat.
+                        <br><br>
+                        Fontes technici in
+                        <a href="#" target="_blank" class="pulsing-text">
+                            repositorio externo
+                        </a>
+                        servantur, cum expositione completa in
+                        <a href="#" target="_blank" class="pulsing-text">
+                            documentis publicis
+                        </a>.
+                    </p>
+                    <div class="but_wrap">
+                        <a href="pages/more-about-project.html" class="button2">legere plura</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+    <!-- slider-end -->
+    <!--==============================content================================-->
+    <section id="content">
+        <div class="container_12">
+            <div class="wrapper">
+                <!-- Latest Posts Section -->
+                <article class="grid_8">
+                    <div class="box">
+                        <h2 class="first">Latest Posts</h2>
+                        <div class="sub_box">
+                            <div id="latest-posts-preloader" class="latest-posts-preloader">
+                                <div class="loader">
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                </div>
+                            </div>
+                            <ul class="ext_list topics" id="latest-posts">
+                            </ul>
+                            <div class="post-footer">
+                                <div id="view-all-container" class="view-all-container">
+                                    <a href="pages/list-of-all-posts.html" class="link2">View All List of Posts</a>
+                                </div>
+                                <div id="post-info-container" class="post-info-container">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Latest Comments Section -->
+                <article class="grid_4">
+                    <div class="box">
+                        <h2 class="first">Latest Comments</h2>
+                        <div class="sub_box">
+                            <div id="latest-comments-preloader" class="latest-posts-preloader">
+                                <div class="loader">
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                </div>
+                            </div>
+                            <ul class="ext_list comments" id="latest-comments">
+                            </ul>
+                            <div id="comments-info-container" class="post-info-container">
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    <div id="g_id_onload"-->
+<!--                         data-client_id="907173051213-sdvpus37efg136i4mujfak7njjhj33um.apps.googleusercontent.com"-->
+<!--                         data-callback="handleCredentialResponse"-->
+<!--                         data-auto_prompt="false">-->
+<!--                    </div>-->
+
+<!--                    <div class="g_id_signin" data-type="standard"></div>-->
+
+                    <!-- Latest Users Section -->
+                    <div class="box">
+                        <h2 class="first">Latest Users</h2>
+                        <div class="sub_box">
+                            <div id="latest-users-preloader" class="latest-posts-preloader">
+                                <div class="loader">
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                    <div class="loader-bar"></div>
+                                </div>
+                            </div>
+                            <ul class="ext_list users" id="latest-users">
+                            </ul>
+                            <div id="users-info-container" class="user-info-container">
+                            </div>
+
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <aside>
+    <div class="container_12">
+        <div class="wrapper">
+            <article class="grid_4">
+                <h5>De Projecto</h5>
+                <p class="green p2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <span class="green">HUI</span> - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br>
+                <span class="green">UTILS-HUI</span> - Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
+                <span class="green">GATEWAY-HUI</span> - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
+                <span class="green">DISCOVERY-HUI</span> - Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.<br>
+                <div class="read-more-wrapper" style="margin-top: 10px;"><a href="#" class="link2">read more</a></div>
+            </article>
+            <article class="grid_4">
+                <h5>Accessus et Restrictiones</h5>
+                <p class="green p3">Lorem ipsum dolor sit amet, consectetur <span class="green">User</span>, <span class="green">Admin</span>, et <span class="green">Super Admin</span> adipiscing elit.</p>
+                <p class="p3">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo <span class="green">User</span>.</p>
+                <p class="p3"><span class="green">Admin</span> role can be assigned to a user only by a <span class="green">Super Admin</span>.</p>
+                <p class="p3"><span class="green">Super Admin</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <a href="#" class="link2">read more</a>
+            </article>
+
+            <article class="grid_4">
+                <h5>Informationes Addicionales</h5>
+                <ul class="games_list">
+                    <li>
+                        <span class="green">Documentatio</span><br>
+                        <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+                    </li>
+                    <li>
+                        <span class="green">ANUSO FACKTRAHEN</span><br>
+                        <a href="#">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</a>
+                    </li>
+                    <li class="last bd_none">
+                        <span class="green">Contact Me</span><br>
+                        <a href="#"><i class="fab fa-google"></i> Gmail</a><br>
+                        <a href="#"><i class="fab fa-github"></i> GitHub</a><br>
+                        <a href="#"><i class="fab fa-gitlab"></i> GitLab</a>
+                    </li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</aside>
+
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="menu">
+            <a href="index.html">home</a>
+            <a href="community.html">community</a>
+            <a href="pages/contacts.html">contacts</a>
+        </div>
+        <div style="position: relative; top: -5px;">
+            <div class="privacy" style="display: flex; align-items: center; gap: 20px; color: #aaa; font-size: 13px; font-family: 'Trebuchet MS', sans-serif;">
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <span style="position: relative; top: -3px;">You are visitor #</span>
+                    <a href="https://www.freecounterstat.com" title="web counter" style="display: flex; align-items: center;">
+                        <img src="https://counter4.optistats.ovh/private/freecounterstat.php?c=hd6l9gse6l6t3qxyswflmczhl4s49w6x" alt="web counter" style="height: 16px;" />
+                    </a>
+                </div><a href="index.html" style="display: flex; align-items: center;"><img src="images/logo/logo2.svg" width="74" height="35" alt="f_logo" /></a>
+                <span style="position: relative; top: -3px;">© 2025&nbsp;&nbsp;<a href="privacy-policy.html" style="color: #aaa;">Privacy Policy</a></span>
+<!--                <span style="position: relative; top: -3px;">© 2025&nbsp;&nbsp;<a href="/privacy-policy.html" style="font-size: 16px; font-weight: bold; color: white;">Privacy Policy</a></span>-->
+
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // window.addEventListener('load', function() {
+    //     const preloader = document.getElementById('preloader');
+    //     preloader.style.display = 'none';
+    // });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const latestPostsContainer = document.getElementById('latest-posts');
+        const preloader = document.getElementById('latest-posts-preloader');
+        const postInfoContainer = document.getElementById('post-info-container');
+
+        latestPostsContainer.style.display = 'none';
+        preloader.style.display = 'flex';
+
+        fetch('https://voilok.site/posts/all?page=0&limit=10', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                preloader.style.display = 'none';
+                document.querySelector('.main').style.display = 'block';
+
+                if (data.success && Array.isArray(data.payload.content) && data.payload.content.length > 0) {
+                    const filteredPosts = data.payload.content.filter(post => post.isDeleted !== true);
+
+                    const sortedPosts = filteredPosts.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+                    sortedPosts.slice(0, 3).forEach(post => {
+                        const createdDate = new Date(post.created).toLocaleString('en-GB', {
+                            day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                        });
+
+                        const postItem = `
+                <li class="latest-post-item">
+                    <figure>
+                        <a href="pages/post.html?id=${post.id}">
+                        <img src="${post.image ? post.image : 'images/your_photo.png'}" alt="${post.title}" class="latest-post-image" />
+                        </a>
+                    </figure>
+                    <div class="latest-post-details">
+                        <h3 class="latest-post-title"><a href="pages/post.html?id=${post.id}" style="text-decoration: none; color: inherit;">${post.title}</a></h3>
+                        <p class="latest-post-content">${post.content.substring(0, 50)}...</p>
+                        <p class="latest-post-comments">The number of comments: ${post.commentsCount || 0}</p>
+                        <p class="latest-post-author">Created by: ${post.createdBy}</p>
+                        <p class="latest-post-date">Created on: ${createdDate}</p>
+                    </div>
+                </li>`;
+                        latestPostsContainer.insertAdjacentHTML('beforeend', postItem);
+                    });
+
+                    latestPostsContainer.style.display = 'block';
+                    postInfoContainer.textContent = `Total posts: ${data.payload.pagination.total}. Displaying latest 3.`;
+                } else {
+                    latestPostsContainer.innerHTML = '<li>No recent posts available.</li>';
+                    latestPostsContainer.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching posts:', error);
+                preloader.style.display = 'none';
+                latestPostsContainer.innerHTML = '<li>Error loading posts. Please try again later.</li>';
+                latestPostsContainer.style.display = 'block';
+                document.querySelector('.main').style.display = 'block';
+            });
+    });
+
+    document.getElementById('preloader').style.display = 'none';
+    document.querySelector('.main').style.display = 'block';
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const latestUsersContainer = document.getElementById('latest-users');
+        const userRole = localStorage.getItem('userRole');
+
+        if (userRole === 'admin' || userRole === 'super admin') {
+            latestUsersContainer.innerHTML = `
+            <ul class="ext_list latest_r video">
+                <li class="m_bottom_zero">
+                    <div class="ext_box review">
+                        <figure><img src="images/body_bg.jpg" alt="Admin Only" /></figure>
+                        <div>
+                            <h3 class="ind2">Admin/Super Admin Users</h3>
+                            <p>Only admin and super admin can view this section.</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        `;
+        } else {
+            latestUsersContainer.innerHTML = `
+            <div class="restricted-access">
+                <figure><img src="images/body_bg.jpg" alt="Restricted Access" /></figure>
+                <p>Access to this information is only available to users with the role of <strong>admin</strong> or <strong>super admin</strong>.</p>
+            </div>
+        `;
+        }
+    });
+
+    // Fetch and display latest comments
+    document.addEventListener("DOMContentLoaded", function () {
+        const latestCommentsContainer = document.getElementById('latest-comments');
+        const commentInfoContainer = document.getElementById('comments-info-container');
+
+        fetch('https://voilok.site/comments/all?page=0&limit=10', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success && Array.isArray(data.payload.content)) {
+                    const filteredComments = data.payload.content
+                        .filter(comment => comment.isDeleted !== true && comment.created);
+
+                    const sortedComments = filteredComments.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+                    sortedComments.slice(0, 2).forEach(comment => {
+                        const createdDate = new Date(comment.created).toLocaleString('en-GB', {
+                            day: 'numeric', month: 'short', year: 'numeric',
+                            hour: '2-digit', minute: '2-digit'
+                        });
+
+                        const authorUsername = comment.owner?.username || 'Unknown';
+
+                        const commentItem = `
+                            <li class="latest-comment-item">
+                                <div class="latest-comment-avatar">
+                                    <img src="images/avatars/avatar-6.png" alt="User Avatar" class="comment-avatar">
+                                </div>
+                                <div class="latest-comment-details">
+                                    <p class="latest-comment-text">${comment.message.substring(0, 50)}...</p>
+                                    <p class="latest-comment-author">Created by: ${authorUsername}</p>
+                                    <p class="latest-comment-date">Created on: ${createdDate}</p>
+                                </div>
+                            </li>`;
+                        latestCommentsContainer.insertAdjacentHTML('beforeend', commentItem);
+                    });
+
+                    commentInfoContainer.textContent = `Total comments: ${filteredComments.length}. Displaying latest 2.`;
+                } else {
+                    latestCommentsContainer.innerHTML = '<li>No recent comments available.</li>';
+                }
+            })
+                .catch(error => {
+                console.error('Error fetching comments:', error);
+                latestCommentsContainer.innerHTML = '<li>Error loading comments. Please try again later.</li>';
+            })
+            .finally(() => {
+                const preloader = document.getElementById('latest-comments-preloader');
+                if (preloader) {
+                    preloader.style.display = 'none';
+                }
+            });
+    });
+
+    // Fetch and display latest users
+    const token = localStorage.getItem('token');
+    document.addEventListener("DOMContentLoaded", function () {
+        const latestUsersContainer = document.getElementById('latest-users');
+        const usersInfoContainer = document.getElementById('users-info-container');
+
+        fetch('https://voilok.site/users/all?page=0&limit=10', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && Array.isArray(data.payload.content)) {
+                    latestUsersContainer.innerHTML = '';
+                    const users = data.payload.content;
+
+                    users.slice(0, 3).forEach(user => {
+                        const username = user.username || 'Unknown';
+                        const email = user.email || 'Unknown';
+                        const role = user.roles?.[0]?.name || 'User';
+                        const userItem = `
+                            <li class="latest-user-item">
+                                <div class="latest-user-avatar">
+                                    <img src="images/avatars/avatar-6.png" alt="User Avatar" class="comment-avatar">
+                                </div>
+                                <div class="latest-user-details">
+                                    <p class="latest-user-text">${username}</p>
+                                    <p class="latest-user-info" title="${email}">${email}</p>
+                                    <p class="latest-user-info">Role: <span class="admin-role">${role}</span></p>
+                                </div>
+                            </li>`;
+                        latestUsersContainer.insertAdjacentHTML('beforeend', userItem);
+                    });
+
+                    usersInfoContainer.textContent = `Total users: ${data.payload.pagination.total}. Displaying latest 3.`;
+                } else {
+                    latestUsersContainer.innerHTML = '<li>No recent users available.</li>';
+                }
+                const usersPreloader = document.getElementById('latest-users-preloader');
+                if (usersPreloader) usersPreloader.style.display = 'none';
+                latestUsersContainer.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error fetching users:', error);
+                latestUsersContainer.innerHTML = '<li>Error loading users. Please try again later.</li>';
+            })
+            .finally(() => {
+            const preloader = document.getElementById('latest-users-preloader');
+            if (preloader) {
+                preloader.style.display = 'none';
+            }
+        });
+    });
+
+    function showPopupMessage(message) {
+        const popup = document.getElementById('search-popup');
+        popup.querySelector('span').textContent = message;
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const createUserLink = document.getElementById('create-user-link');
+        if (createUserLink) {
+            createUserLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Create comment link click
+        const createCommentLink = document.getElementById('create-comment-link');
+        if (createCommentLink) {
+            createCommentLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        const getListOfUsersLink = document.getElementById('get-list-of-users-link');
+        if (getListOfUsersLink) {
+            getListOfUsersLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("You do not have the required permissions. This feature is only for administrators.");
+            });
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            showPopupMessage("Search functionality not implemented yet");
+        }
+
+        document.getElementById('search').addEventListener('submit', handleSearch);
+    });
+
+    function handleSearch(event) {
+        event.preventDefault();
+        const popup = document.getElementById('search-popup');
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener('click', function(e) {
+        const a = e.target.closest('a[href^="pages/post.html"]');
+        if (!a) return;
+        const token = localStorage.getItem('token');
+        if (!token) {
+            e.preventDefault();
+            window.location.href = 'pages/login-page.html';
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const email = localStorage.getItem('email');
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
+
+        if (username && token) {
+            document.getElementById('auth-links').style.display = 'none';
+            document.getElementById('welcome-message').style.display = 'block';
+            document.getElementById('greeting').textContent = username;
+        } else {
+            document.getElementById('auth-links').style.display = 'block';
+            document.getElementById('welcome-message').style.display = 'none';
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function() {
+            localStorage.removeItem('email');
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            window.location.reload();
+        });
+    });
+
+    window.onload = function () {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            google.accounts.id.initialize({
+                client_id: "907173051213-sdvpus37efg136i4mujfak7njjhj33um.apps.googleusercontent.com",
+                callback: handleCredentialResponse,
+                auto_select: true,
+                cancel_on_tap_outside: false,
+                use_fedcm_for_prompt: true
+            });
+
+            google.accounts.id.prompt(() => {});
+        }
+    };
+
+    function handleCredentialResponse(response) {
+        fetch("https://voilok.site/auth/oauth2/one-tap", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ credential: response.credential })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.payload && data.payload.token) {
+                    localStorage.setItem('token', data.payload.token);
+                    localStorage.setItem('username', data.payload.username);
+                    localStorage.setItem('email', data.payload.email);
+                    location.reload();
+                } else {
+                    console.error("Missing payload or token in response:", data);
+                }
+            })
+            .catch(err => {
+                console.error("Google One Tap login error:", err);
+            });
+    }
+</script>
+</body>
+</html>

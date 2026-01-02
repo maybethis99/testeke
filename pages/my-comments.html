@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Comments - Post-Hub</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="../images/icons9-favicon-64.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/icons9-favicon-64.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/tms.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/view-comment.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/delete-post-modal.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/edit-comment.css">
+    <script type="text/javascript" src="../js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="../js/superfish.js"></script>
+    <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../js/tms-0.4.1.js"></script>
+</head>
+<body>
+<div id="preloader">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+
+<div class="main">
+    <!--==============================header=================================-->
+    <header>
+        <div class="top">
+            <div class="nav">
+                <ul class="sf-menu">
+                    <li><a href="../index.html">home</a></li>
+
+                    <li><a href="#">community</a></li>
+                    <li><a href="contacts.html">contacts</a></li>
+                </ul>
+            </div>
+            <div class="login" id="auth-container">
+                <div id="auth-links">
+                    You have not yet registered to our club? &nbsp;&nbsp;
+                    <a href="register-page.html" id="register-link">Register</a> &nbsp;&nbsp; or &nbsp;&nbsp;
+                    <a href="login-page.html" id="login-link">Log in</a>
+                </div>
+                <div id="welcome-message" style="display: none;">
+                    Welcome on board, <span id="greeting"></span>!
+                    &nbsp;&nbsp;<a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="middle">
+            <h1><a class="logo" href="../index.html"><span>Post</span>Wave</a></h1>
+            <a href="../index.html" class="h_banner"></a>
+        </div>
+        <nav>
+            <ul class="sf-menu">
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="my-posts.html">MY POSTS</a></li>
+                <li class="current f_item"><a href="my-comments.html">MY COMMENTS</a></li>
+                <li><a href="#">ACTIONS</a>
+                    <ul>
+                        <li><a href="#" id="create-user-link">Create user</a></li>
+                        <li><a href="create-post.html">Create post</a></li>
+                        <li><a href="#" id="create-comment-link">Create comment</a></li>
+                        <li><a href="#" id="get-list-of-users-link">Get list of users</a></li>
+                    </ul>
+                </li>
+                <li><a href="actions.html">LOGS</a></li>
+                <li><a href="my-account.html">MY ACCOUNT</a></li>
+            </ul>
+            <form id="search" onsubmit="return handleSearch(event)" accept-charset="utf-8" style="position: relative;">
+                <label for="search-query"></label><input type="text" id="search-query" name="s" placeholder="Enter search term..." />
+                <button type="submit" class="button1">Search</button>
+                <!-- Pop-up -->
+                <div id="search-popup" style="display: none; position: absolute; top: 100%; left: 0; background-color: rgba(255, 255, 255, 0.95); color: #333; padding: 10px 15px; border-radius: 8px; margin-top: 5px; font-size: 12px; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); border: 1px solid #ddd; white-space: nowrap;">
+                    <i class="fas fa-info-circle" style="vertical-align: middle; line-height: 1;"></i>
+                    <span style="vertical-align: middle;">Search functionality not implemented yet</span>
+                </div>
+            </form>
+            <div id="search-results"></div>
+            <div class="clear"></div>
+        </nav>
+    </header>
+    <!--==============================content=================================-->
+    <div class="main">
+        <section id="content">
+            <div class="container_12">
+                <div class="wrapper">
+                    <article class="grid_12">
+                        <div class="box">
+                            <h2 class="first">My Comments</h2>
+                            <div class="button-container">
+                                <div id="create-post-container">
+                                    <a href="#" id="add-comment-button" class="create-post-button">
+                                        <div class="plus-icon">+</div>
+                                        <div class="add-post-text">Add New Comment</div>
+                                    </a>
+                                </div>
+                            </div>
+                            <hr class="divider">
+                            <div class="sub_box" id="post-container">
+                                <ul id="comment-list" class="picks comments-list">
+                                </ul>
+
+                                <div class="post-footer">
+                                    <div id="view-all-container" class="view-all-container">
+                                        <a href="all-my-comments.html" class="link2">View All My Comments</a>
+                                    </div>
+                                    <div id="post-info-container" class="post-info-container">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="menu">
+            <a href="../index.html">home</a>
+            <a href="community.html">community</a>
+            <a href="contacts.html">contacts</a>
+        </div>
+        <div class="privacy">
+            <a href="../index.html"><img src="../images/logo/logo2.svg" width="74" height="35" alt="f_logo" /></a>
+            &nbsp; &nbsp;<span>© 2025 &nbsp; &nbsp;&nbsp; <a href="../privacy-policy.html">Privacy Policy</a></span>
+        </div>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let commentIdToDelete = null;
+
+        const username = localStorage.getItem('username');
+        const token = localStorage.getItem('token');
+        const createCommentContainer = document.getElementById('create-post-container');
+        const commentContainer = document.getElementById('post-container');
+        const commentList = document.getElementById('comment-list');
+        const commentInfoContainer = document.getElementById('post-info-container');
+
+        if (username && token) {
+            document.getElementById('auth-links').style.display = 'none';
+            document.getElementById('welcome-message').style.display = 'block';
+            document.getElementById('greeting').textContent = username;
+            createCommentContainer.style.display = 'block';
+
+            loadComments();
+        } else {
+            document.getElementById('auth-links').style.display = 'block';
+            document.getElementById('welcome-message').style.display = 'none';
+            createCommentContainer.style.display = 'none';
+            commentContainer.innerHTML = `<p class="no-posts-message">Please <a href="register-page.html">register</a> or <a href="login-page.html">log in</a> to create and view your comments.</p>`;
+            document.getElementById('preloader').style.display = 'none';
+            commentInfoContainer.innerHTML = '';
+        }
+
+        document.getElementById('logout-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.removeItem('username');
+            localStorage.removeItem('token');
+            window.location.reload();
+        });
+
+        document.getElementById('comment-list').addEventListener('click', function(event) {
+            if (event.target.classList.contains('edit-comment')) {
+                event.preventDefault();
+                const commentItem = event.target.closest('.picks-comment');
+                const commentContent = commentItem.querySelector('.comment-content a');
+
+                const textArea = document.createElement('textarea');
+                textArea.classList.add('editable');
+                textArea.value = commentContent.textContent;
+                textArea.required = true;
+                commentContent.replaceWith(textArea);
+
+                const saveButton = document.createElement('span');
+                saveButton.classList.add('save-comment');
+                saveButton.innerHTML = 'Save changes';
+                event.target.replaceWith(saveButton);
+
+                saveButton.addEventListener('click', function() {
+                    const updatedContent = textArea.value.trim();
+                    const postId = commentItem.getAttribute('data-post-id');
+                    if (updatedContent && postId) {
+                        saveComment(commentItem.getAttribute('data-comment-id'), updatedContent, postId, commentItem);
+                    }
+                });
+            }
+        });
+
+        function saveComment(commentId, newContent, postId, commentItem) {
+            showPreloader();
+
+            fetch(`https://voilok.site/comments/${commentId}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    postId: postId,
+                    message: newContent
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const commentContent = commentItem.querySelector('textarea.editable');
+                        const link = document.createElement('a');
+                        link.href = `post.html?id=${postId}`;
+                        link.classList.add('comment-link');
+                        link.textContent = newContent;
+                        commentContent.replaceWith(link);
+
+                        const editButton = document.createElement('a');
+                        editButton.href = '#';
+                        editButton.classList.add('edit-comment');
+                        editButton.textContent = 'Edit';
+                        commentItem.querySelector('.save-comment').replaceWith(editButton);
+                    } else {
+                        alert('Error updating comment: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating comment:', error);
+                    alert('An error occurred while updating the comment. Please try again.');
+                })
+                .finally(hidePreloader);
+        }
+
+        document.getElementById('comment-list').addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-comment')) {
+                event.preventDefault();
+                commentIdToDelete = event.target.getAttribute('data-comment-id');
+                document.getElementById('delete-comment-modal').style.display = 'flex';
+            }
+        });
+
+        document.getElementById('confirm-delete-comment').addEventListener('click', function() {
+            if (commentIdToDelete) {
+                showPreloader();
+                deleteComment(commentIdToDelete);
+            }
+            document.getElementById('delete-comment-modal').style.display = 'none';
+        });
+
+        document.getElementById('cancel-delete-comment').addEventListener('click', function() {
+            document.getElementById('delete-comment-modal').style.display = 'none';
+            commentIdToDelete = null;
+        });
+
+        function deleteComment(commentId) {
+            fetch(`https://voilok.site/comments/${commentId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(text || 'Unknown error');
+                        });
+                    }
+                    return response.json().catch(() => ({}));
+                })
+                .then(data => {
+                    if (data.success || Object.keys(data).length === 0) {
+                        const commentElement = document.querySelector(`[data-comment-id="${commentId}"]`).closest('li.picks-comment');
+                        commentElement.remove();
+
+                        const remainingComments = document.querySelectorAll('li.picks-comment').length;
+                        const commentInfoContainer = document.getElementById('post-info-container');
+                        if (remainingComments === 0) {
+                            document.getElementById('comment-list').innerHTML = `
+                    <p class="no-posts-message">You don't have any comments yet.
+                    <br>To get started, choose a post from the <a href="my-posts.html">My Posts</a> page or the <a href="../index.html">Home</a> page!</p>`;
+                            commentInfoContainer.innerHTML = '';
+                        } else {
+                            commentInfoContainer.innerHTML = `Total comments: ${remainingComments}. Displaying latest ${remainingComments}.`;
+                        }
+                    } else {
+                        alert('Error deleting comment: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting comment:', error);
+                    alert('An error occurred while deleting the comment. Please try again.');
+                })
+                .finally(() => {
+                    hidePreloader();
+                });
+        }
+
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.sf-menu li').forEach(function(menuItem) {
+            menuItem.classList.remove('current');
+        });
+
+        if (currentPath.includes("index.html")) {
+            document.querySelector('.sf-menu li a[href="index.html"]').parentElement.classList.add('current');
+        } else if (currentPath.includes("my-comments.html")) {
+            document.querySelector('.sf-menu li a[href="my-comments.html"]').parentElement.classList.add('current');
+        }
+
+        function showPreloader() {
+            document.getElementById('preloader').style.display = 'flex';
+        }
+
+        function hidePreloader() {
+            document.getElementById('preloader').style.display = 'none';
+        }
+
+        loadComments();
+    });
+
+    function loadComments() {
+        const preloader = document.getElementById('preloader');
+        const commentList = document.getElementById('comment-list');
+        const commentInfoContainer = document.getElementById('post-info-container');
+        const token = localStorage.getItem('token');
+
+        preloader.style.display = 'flex';
+
+        fetch('https://voilok-site/comments', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                preloader.style.display = 'none';
+
+                if (data.success && data.payload.length > 0) {
+                    commentList.innerHTML = '';
+
+                    const sortedComments = data.payload
+                        .filter(comment => !comment.isDeleted)
+                        .sort((a, b) => {
+                            const dateA = new Date(a.created[0], a.created[1] - 1, a.created[2], a.created[3], a.created[4], a.created[5]);
+                            const dateB = new Date(b.created[0], b.created[1] - 1, b.created[2], b.created[3], b.created[4], b.created[5]);
+                            return dateB - dateA;
+                        });
+
+                    sortedComments.slice(0, 5).forEach(comment => {
+                        const commentDate = new Date(comment.created).toLocaleString();
+
+                        const commentItem = `
+                                    <li class="picks-comment" data-post-id="${comment.postId}" data-comment-id="${comment.id}">
+                                        <div class="content-wrapper">
+                                            <p class="comment-content">
+                                                <a href="post.html?id=${comment.postId}" class="comment-link">${comment.message}</a>
+                                            </p>
+                                            <div class="comment-meta">
+                                                <p class="author">Commented by: ${comment.owner.username}</p>
+                                                <p class="date">Created on: ${commentDate}</p>
+                                                <div class="actions">
+                                                    <a href="#" class="edit-comment">Edit</a>
+                                                    <a href="#" class="delete-comment" data-comment-id="${comment.id}">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                `;
+
+                        commentList.insertAdjacentHTML('afterbegin', commentItem);
+                    });
+
+                    commentInfoContainer.innerHTML = `Total comments: ${data.payload.length}. Displaying latest 5.`;
+                } else {
+                    commentList.innerHTML = `<p class="no-posts-message">You don't have any comments yet.
+                    <br>To get started, choose a post from the <a href="my-posts.html">My Posts</a> page or the <a href="../index.html">Home</a> page!</p>`;
+                    commentInfoContainer.innerHTML = '';
+                }
+            })
+            .catch(error => {
+                console.error('Error loading comments:', error);
+                preloader.style.display = 'none';
+                commentList.innerHTML = `<p class="error-message">There was an error loading your comments. Please try again later.</p>`;
+                commentInfoContainer.innerHTML = '';
+            });
+    }
+
+    // Reuse the search popup for other actions
+    function showPopupMessage(message) {
+        const popup = document.getElementById('search-popup');
+
+        // Update the message in the popup
+        popup.querySelector('span').textContent = message;
+
+        // Show the popup
+        popup.style.display = 'block';
+
+        // Hide the popup after 3 seconds
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Handle Create user link click
+        const createUserLink = document.getElementById('create-user-link');
+        if (createUserLink) {
+            createUserLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Add New Comment button click
+        const addCommentButton = document.getElementById('add-comment-button');
+        if (addCommentButton) {
+            addCommentButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("To add a comment, go to the Posts section and comment there.", addCommentButton);
+            });
+        }
+
+        // Handle Create comment link click
+        const createCommentLink = document.getElementById('create-comment-link');
+        if (createCommentLink) {
+            createCommentLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("This functionality is not yet ready.");
+            });
+        }
+
+        // Handle Get list of users link click
+        const getListOfUsersLink = document.getElementById('get-list-of-users-link');
+        if (getListOfUsersLink) {
+            getListOfUsersLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                showPopupMessage("You do not have the required permissions. This feature is only for administrators.");
+            });
+        }
+
+        // Existing search popup handling
+        function handleSearch(event) {
+            event.preventDefault();
+            showPopupMessage("Search functionality not implemented yet");
+        }
+
+        document.getElementById('search').addEventListener('submit', handleSearch);
+    });
+
+    function handleSearch(event) {
+        event.preventDefault();
+        const popup = document.getElementById('search-popup');
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+</script>
+
+<div class="modal-overlay" id="delete-comment-modal">
+    <div class="modal-window">
+        <div class="modal-title">Are you sure you want to delete this comment?</div>
+        <div class="modal-buttons">
+            <button class="modal-button confirm" id="confirm-delete-comment">Yes</button>
+            <button class="modal-button cancel" id="cancel-delete-comment">No</button>
+        </div>
+    </div>
+</div>
+<div id="delete-comment-preloader" style="display: none;">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+</body>
+</html>

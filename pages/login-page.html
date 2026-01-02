@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login - Post Hub</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="../images/icons9-favicon-64.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/icons9-favicon-64.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/tms.css">
+    <script type="text/javascript" src="../js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="../js/superfish.js"></script>
+    <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../js/tms-0.4.1.js"></script>
+    <!--[if lt IE 8]>
+    <div style=' clear: both; text-align:center; position: relative;'>
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+    </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../js/html5.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/ie.css">
+    <![endif]-->
+</head>
+<body>
+<div id="preloader">
+    <div class="cube-grid">
+        <div class="cube cube1"></div>
+        <div class="cube cube2"></div>
+        <div class="cube cube3"></div>
+        <div class="cube cube4"></div>
+        <div class="cube cube5"></div>
+        <div class="cube cube6"></div>
+        <div class="cube cube7"></div>
+        <div class="cube cube8"></div>
+        <div class="cube cube9"></div>
+    </div>
+</div>
+
+<div class="main">
+    <!--==============================header=================================-->
+    <header>
+        <div class="top">
+            <div class="nav">
+                <ul class="sf-menu">
+                    <li><a href="index.html">home</a></li>
+                    <li><a href="#">community</a></li>
+                    <li><a href="contacts.html">contacts</a></li>
+                </ul>
+            </div>
+            <div class="login" id="auth-container">
+                <div id="auth-links">
+                    You have not yet registered to our club? &nbsp;&nbsp;
+                    <a href="register-page.html" id="register-link">Register</a> &nbsp;&nbsp; or &nbsp;&nbsp;
+                    <a href="login-page.html" id="login-link">Log in</a>
+                </div>
+                <div id="welcome-message" style="display: none;">
+                    Welcome on board, <span id="greeting"></span>!
+                    &nbsp;&nbsp;<a href="#" id="logout-link">Logout</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="middle">
+            <h1><a class="logo" href="../index.html"><span>Post</span>Wave</a></h1>
+            <a href="../index.html" class="h_banner"></a>
+        </div>
+        <nav>
+            <ul class="sf-menu">
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="my-posts.html">MY POSTS</a></li>
+                <li><a href="my-comments.html">MY COMMENTS</a></li>
+                <li><a >ACTIONS</a>
+                    <ul>
+                        <li><a href="">Create user</a></li>
+                        <li><a href="create-post.html">Create post</a></li>
+                        <li><a href="">Create comment</a></li>
+                        <li><a href="" id="get-list-of-users-link">Get list of users</a></li>
+                    </ul>
+                </li>
+                <li><a href="actions.html">LOGS</a></li>
+                <li><a href="my-account.html">MY ACCOUNT</a></li>
+            </ul>
+            <form id="search" onsubmit="return handleSearch(event)" accept-charset="utf-8" style="position: relative;">
+                <label for="search-query"></label><input type="text" id="search-query" name="s" placeholder="Enter search term..." />
+                <button type="submit" class="button1">Search</button>
+                <!-- Pop-up -->
+                <div id="search-popup" style="display: none; position: absolute; top: 100%; left: 0; background-color: rgba(255, 255, 255, 0.95); color: #333; padding: 10px 15px; border-radius: 8px; margin-top: 5px; font-size: 12px; z-index: 1000; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); border: 1px solid #ddd; white-space: nowrap;">
+                    <i class="fas fa-info-circle" style="vertical-align: middle; line-height: 1;"></i>
+                    <span style="vertical-align: middle;">Search functionality not implemented yet</span>
+                </div>
+            </form>
+            <div id="search-results"></div>
+            <div class="clear"></div>
+        </nav>
+    </header>
+    <!--==============================content=================================-->
+    <section id="content" class="cont_pad">
+        <div class="container_12">
+            <div class="wrapper">
+                <article class="grid_12">
+                    <div class="box login-box">
+                        <h2 class="first">Login</h2>
+                        <div class="sub_box4">
+                            <form id="login-form" method="post" accept-charset="UTF-8" class="login-form">
+                                <div class="form-group">
+                                    <label for="email">Email: <span class="required">*</span></label>
+                                    <input id="email" class="form-control" type="text" placeholder="Enter your email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password: <span class="required">*</span></label>
+                                    <input id="password" class="form-control" type="password" placeholder="Enter your password" name="password" required>
+                                </div>
+                                <div id="error-message" class="error-message">
+                                    <h3>Login failed</h3>
+                                    <p>Incorrect email or password.</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="btn btn-primary btn-login" type="submit" value="Sign In" name="commit">
+                                </div>
+                                <div class="auth-alt-block">
+                                    <div class="divider"><span>or</span></div>
+                                    <div class="social-buttons">
+                                        <a href="#" class="btn-social btn-google" id="google-login">
+                                            <img src="../images/logo/google-icon.png" alt="Google Icon" class="google-icon">
+                                            <span class="google-text">Continue with Google</span>
+                                        </a>
+
+                                        <a href="#" class="btn-social btn-facebook" id="facebook-login">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Icon" class="google-icon">
+                                            <span class="google-text">Continue with Facebook</span>
+                                            <div class="custom-tooltip" id="fb-tooltip">❗ Works only in local env.<br>Watch module 18: Facebook login setup</div>
+                                        </a>
+
+                                        <!--                                        !!! Uncomment the code below only for local development !!!-->
+                                        <!--                                        <a href="#" class="btn-social btn-facebook" id="facebook-login">-->
+                                        <!--                                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Icon" class="google-icon">-->
+                                        <!--                                            <span class="google-text">Continue with Facebook</span>-->
+                                        <!--                                        </a>-->
+                                    </div>
+                                <div class="form-group">
+                                    <p class="register-link">Don't have an account? <a href="register-page.html">Sign Up</a></p>
+                                </div>
+                                <div class="form-group">
+                                    <p class="required-info">Fields marked with <span class="required">*</span> are mandatory.</p>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="menu">
+            <a href="../index.html">home</a>
+            <a href="community.html">community</a>
+            <a href="contacts.html">contacts</a>
+        </div>
+        <div class="privacy">
+            <a href="../index.html"><img src="../images/logo/logo2.svg" width="74" height="35" alt="f_logo" /></a>
+            &nbsp; &nbsp;<span>© 2025 &nbsp; &nbsp;&nbsp; <a href="../privacy-policy.html">Privacy Policy</a></span>
+        </div>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const preloader = document.getElementById('preloader');
+        const form = document.getElementById("login-form");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            errorMessage.style.display = 'none';
+            preloader.style.display = 'flex';
+
+            fetch('https://voilok.site/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem('token', data.payload.token);
+                        localStorage.setItem('email', data.payload.email);
+
+                        const username = data.payload.username;
+                        localStorage.setItem('username', username);
+
+                        const role = data.payload.roles?.[0]?.name || 'USER';
+                        localStorage.setItem('role', role);
+
+                        preloader.style.display = 'none';
+                        window.location.href = '../index.html';
+                    } else {
+                        errorMessage.querySelector('h3').textContent = 'Login Failed';
+                        errorMessage.querySelector('p').textContent = 'Incorrect email or password.';
+                        errorMessage.style.display = 'block';
+                        preloader.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    errorMessage.querySelector('h3').textContent = 'Login Failed';
+                    errorMessage.querySelector('p').textContent = 'Incorrect email or password.';
+                    errorMessage.style.display = 'block';
+                    preloader.style.display = 'none';
+                });
+        });
+    });
+
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        preloader.style.display = 'none';
+    });
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        preloader.style.display = 'none';
+        document.querySelector('.main').style.display = 'block';
+    });
+    function handleSearch(event) {
+        event.preventDefault();
+        const popup = document.getElementById('search-popup');
+
+        popup.style.display = 'block';
+
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const googleLoginButton = document.getElementById('google-login');
+        if (googleLoginButton) {
+            googleLoginButton.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const isLocalhost = window.location.hostname === 'localhost';
+                window.location.href = isLocalhost
+                    ? 'http://localhost:8189/oauth2/authorization/google'
+                    : 'https://post-wave-swagger.fun/oauth2/authorization/google';
+            });
+        }
+    });
+
+    /*
+    * !!! Uncomment the code below only for local development !!!
+    * */
+    // const facebookLoginButton = document.getElementById('facebook-login');
+    // if (facebookLoginButton) {
+    //     facebookLoginButton.addEventListener('click', function (event) {
+    //         event.preventDefault();
+    //
+    //         const isLocalhost = window.location.hostname === 'localhost';
+    //         window.location.href = isLocalhost
+    //             ? 'http://localhost:8189/oauth2/authorization/facebook'
+    //             : 'https://post-wave-swagger.fun/oauth2/authorization/facebook';
+    //     });
+    // }
+
+    const facebookLoginButton = document.getElementById('facebook-login');
+    const tooltip = document.getElementById('fb-tooltip');
+
+    if (facebookLoginButton && tooltip) {
+        facebookLoginButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            tooltip.style.display = 'block';
+
+            setTimeout(() => {
+                tooltip.style.display = 'none';
+            }, 4000);
+        });
+    }
+</script>
+</body>
+</html>
