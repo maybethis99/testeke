@@ -40,7 +40,7 @@
     const messageElement = document.getElementById('message');
 
     if (token) {
-        fetch(`https://voilok.site:8189/auth/confirm?token=${token}`)
+        fetch(`voilok.site:8189/auth/confirm?token=${token}`)
             .then(response => {
                 if (response.ok) {
                     let countdown = 3;

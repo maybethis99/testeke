@@ -258,7 +258,7 @@
 
         preloader.style.display = 'flex';
 
-        fetch(`https://voilok.site:8189/posts/${postId}`, {
+        fetch(`voilok.site:8189/posts/${postId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -315,7 +315,7 @@
         function deletePost() {
             deletePreloader.style.display = 'flex';
 
-            fetch(`https://voilok.site:8189/posts/${postId}`, {
+            fetch(`voilok.site:8189/posts/${postId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -365,7 +365,7 @@
         const preloader = document.getElementById('comment-preloader');
         preloader.style.display = 'flex';
 
-        fetch('https://voilok.site:8189/comments/search', {
+        fetch('voilok.site:8189/comments/search', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -437,7 +437,7 @@
         const preloader = document.getElementById('comment-preloader');
         preloader.style.display = 'flex';
 
-        fetch('https://voilok.site:8189/comments/create', {
+        fetch('voilok.site:8189/comments/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

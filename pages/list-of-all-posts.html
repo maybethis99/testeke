@@ -228,7 +228,7 @@
         function fetchPosts(page) {
             showLoader();
 
-            fetch(`https://voilok.site:8189/posts/all?page=${page - 1}&limit=${postsPerPage}&sort=id,desc`, {
+            fetch(`voilok.site:8189/posts/all?page=${page - 1}&limit=${postsPerPage}&sort=id,desc`, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'}
             })
@@ -262,7 +262,7 @@
             document.getElementById('welcome-message').style.display = 'block';
             document.getElementById('greeting').textContent = username;
 
-            fetch(`https://voilok.site:8189/posts/all?page=${currentPage - 1}&limit=${postsPerPage}&sort=id,desc`, {
+            fetch(`voilok.site:8189/posts/all?page=${currentPage - 1}&limit=${postsPerPage}&sort=id,desc`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
