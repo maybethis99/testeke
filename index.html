@@ -383,7 +383,7 @@
         latestPostsContainer.style.display = 'none';
         preloader.style.display = 'flex';
 
-        fetch('https://voilok.site:8189/posts/all?page=0&limit=10', {
+        fetch('voilok.site:8189/posts/all?page=0&limit=10', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -474,7 +474,7 @@
         const latestCommentsContainer = document.getElementById('latest-comments');
         const commentInfoContainer = document.getElementById('comments-info-container');
 
-        fetch('https://voilok.site:8189/comments/all?page=0&limit=10', {
+        fetch('voilok.site:8189/comments/all?page=0&limit=10', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -538,7 +538,7 @@
         const latestUsersContainer = document.getElementById('latest-users');
         const usersInfoContainer = document.getElementById('users-info-container');
 
-        fetch('https://voilok.site:8189/users/all?page=0&limit=10', {
+        fetch('voilok.site:8189/users/all?page=0&limit=10', {
             method: 'GET'
         })
             .then(response => response.json())
@@ -686,7 +686,7 @@
     };
 
     function handleCredentialResponse(response) {
-        fetch("https://voilok.site:8189/auth/oauth2/one-tap", {
+        fetch("voilok.site:8189/auth/oauth2/one-tap", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
